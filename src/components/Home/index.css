@@ -1,0 +1,165 @@
+/* Reset some default styling */
+body, h1, h2, h3, p, ul {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: sans-serif;
+  }
+  
+  /* Main container */
+  .homepage {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background-color:#17202A ;
+  }
+  
+
+  
+  /* Hero section */
+  .hero {
+    text-align: center;
+    color: white;
+    padding: 4rem 0;
+    background-color:#34282C;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    
+  }
+  
+  .hero button {
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    max-width: 500px;
+    margin: 0 auto; /* This will center the button horizontally */
+    transition: background-color 0.3s;
+  }
+
+  .hero button:hover {
+    background-color: #0056b3;
+
+  }
+  
+  
+  /* Featured products section */
+  .featured-products {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem 0;
+    background-color:white;
+  }
+  
+  .product-card {
+    border: 1px solid #ddd;
+    padding: 1.5rem;
+    max-width: 300px;
+    text-align: center;
+    border-radius: 5px;
+    background-color:#25383C;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+  
+  .product-card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .product-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-card:hover{
+    transform: scale(1.1);
+  }
+  
+  /* Footer */
+  .footer {
+    background-color:#25383C ;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    /* Position the footer at the bottom */
+    position: sticky;
+    bottom: 0;
+  }
+  .product-logo{
+    height: 120px;
+    width: 120px;
+    border-radius: 120px;
+    background-size: cover;
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .nav {
+      margin-top: 1rem;
+    }
+  
+    .hero {
+      padding: 2rem 0;
+    }
+  
+    .hero h1 {
+      font-size: 2rem;
+    }
+  
+    .hero p {
+      font-size: 1rem;
+    }
+    .hero button{
+      max-width: 270px;
+      font-size: 14px;
+    }
+
+  
+  
+    .featured-products {
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+  
+    .product-card {
+      width: 70%;
+    }
+
+    .hero h1{
+      font-size: 22px;
+      padding: 10px;
+    }
+
+    .hero p{
+      font-size: 14px;
+      padding: 10px;
+    }
+    
+    .featured-products h3{
+      font-size: 21px;
+    }
+    
+    .featured-products p{
+      font-size: 12px;
+    }
+  }
+  

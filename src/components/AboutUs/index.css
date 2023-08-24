@@ -1,0 +1,65 @@
+.about-us {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 50px;
+    background-color:#1c181d;
+    min-height: 100vh;
+  }
+  
+  .about-content {
+    max-width: 1000px;
+    text-align: center;
+  }
+  .div-one{
+    border: 3px solid #25383C;
+    padding: 10px;
+  }
+
+  .about-content h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color:#504A4B;
+    animation: zoomInOut 3s infinite;
+    transition: backgroundColor 0.3s;
+  }@keyframes zoomInOut {
+    100%, 50% {
+      transform: scale(1); /* Normal size */
+    }
+    30% {
+      transform: scale(1.1); /* Zoomed in size */
+    }
+  }
+
+  
+
+  .about-content h2:hover{
+    background-color:#413839 ;
+  }
+  
+  .about-content p {
+    font-size: 16px;
+    line-height: 1.5;
+    color:white;
+    margin-bottom: 20px;
+  }
+  
+  .social-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .social-links a {
+    display: inline-block;
+    margin: 0 10px;
+  }
+  
+  .social-links img {
+    width: 30px;
+    height: 30px;
+  }
+  

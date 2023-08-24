@@ -1,0 +1,72 @@
+/* ForgotPassword.css */
+
+/* Reset default margin and padding */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set a global font-family */
+body {
+  font-family: sans-serif;
+}
+
+.forgot-password-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:#0C090A ;
+  height: 100vh;
+}
+
+.forgot-password-box {
+  width: 400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color:#3A3B3C;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.input-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.link-signin {
+  color: yellow;
+  transition: font-weight 0.3s;
+}
+
+.link-signin:hover {
+  font-weight: bold;
+}

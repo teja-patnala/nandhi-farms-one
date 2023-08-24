@@ -1,0 +1,21 @@
+.not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .not-found-content {
+    text-align: center;
+  }
+  
+  /* Additional styling for the text */
+  h1 {
+    font-size: 2em;
+  }
+  
+  p {
+    font-size: 1.2em;
+    color: gray;
+  }
+  
