@@ -44,12 +44,13 @@ body, h1, h2, h3, p, ul {
     cursor: pointer;
     max-width: 500px;
     margin: 0 auto; /* This will center the button horizontally */
-    transition: background-color 0.3s;
+    transition: background-color 0.3s,;
   }
 
   .hero button:hover {
     background-color: #0056b3;
-
+    font-weight: bold;
+    transform: scale(1.1);
   }
   
   

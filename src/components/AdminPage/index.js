@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { collection,query,doc,setDoc, where, getDocs } from 'firebase/firestore';
 import { useAuth } from '../../context/AuthContext';
 import { db } from '../../firestore';
-import useOTPGenerator  from "../../OtpGenerationFolder";
+//import {TOTP} from "otpauth";
 import MilkOrders from '../MilkOrders';
-import speakeasy from 'speakeasy';
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +15,7 @@ const AdminPage = () => {
   const [title,setTitle] = useState("Milk Orders");
   const navigate = useNavigate();
   const { logout } = useAuth(); // Corrected this line
-  const otp = useOTPGenerator()
+  
 
   const handleSendMessage = () => {
     setOrders("ji");
@@ -32,14 +31,15 @@ const AdminPage = () => {
     }
   }
 
-  function generateOTP(secret){
-    const totpToken = speakeasy.totp({
-      secret: secret,
-      encoding: 'base32',
-      step: 30,
-      digits: 6
-    });
-    return totpToken
+  
+  function generateOTP() {
+    var string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let OTP = '';
+    var len = string.length;
+    for (let i = 0; i < 6; i++ ) {
+        OTP += string[Math.floor(Math.random() * len)];
+    }
+    return OTP;
   }
 
   async function sendOtp() {
@@ -72,7 +72,7 @@ const AdminPage = () => {
             userData: {
               ...userData,
               noDaysSuppliesMilk: userData.noDaysSuppliesMilk - 1,
-              otpForMilkCollection: generateOTP(userData.email),
+              otpForMilkCollection: generateOTP(),
             },
           });
         }

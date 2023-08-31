@@ -1,5 +1,5 @@
 import React from "react"; 
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import {useAuth} from "../../context/AuthContext"
 import "./index.css"; // You can create a CSS file for styling
 import Header from "../Header"
@@ -7,8 +7,8 @@ import ReactPopUp from '../AdminPopUpModel';
 
 function Home() {
   const navigate = useNavigate()
-  const {isAdminOfNandhi} = useAuth()
-  console.log(isAdminOfNandhi)
+  const {isAdminOfNandhi,currentUserData} = useAuth()
+  console.log(currentUserData.current)
   return (
     <div className="homepage">
       <ReactPopUp adminStatus={isAdminOfNandhi.current}/>
@@ -20,12 +20,13 @@ function Home() {
       </section>
 
       <section className="featured-products">
-        <div className="product-card">
-          <img className="product-logo" src="https://res.cloudinary.com/dxx7ni6cl/image/upload/v1692544532/4393855_1232_m2a6ku.jpg" alt="Product 1" />
-          <h3>Organic Milk</h3>
-          <p>Fresh and organic milk from local farms.</p>
-        </div>
-
+        <Link to = "/subscribe" className="product-card">
+          <div >
+            <img className="product-logo" src="https://res.cloudinary.com/dxx7ni6cl/image/upload/v1692544532/4393855_1232_m2a6ku.jpg" alt="Product 1" />
+            <h3>Organic Milk</h3>
+            <p>Fresh and organic milk from local farms.</p>
+          </div>
+        </Link>
         <div className="product-card">
           <img className="product-logo" src="https://res.cloudinary.com/dxx7ni6cl/image/upload/v1692545982/healthy-food-ingredients-black-table_1_pwe5ye.jpg" alt="Product 2" />
           <h3>Nourishing Delights</h3>

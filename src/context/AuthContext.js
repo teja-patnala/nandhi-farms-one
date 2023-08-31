@@ -44,6 +44,7 @@ function AuthProvider({ children }) {
     }
   
     const isAdminOfNandhi = useRef();
+    const currentUserData = useRef();
   
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -55,8 +56,8 @@ function AuthProvider({ children }) {
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
             const userData = doc.data();
-            console.log(userData)
             isAdminOfNandhi.current = userData.isAdmin;
+            currentUserData.current = userData
           });
         }
       });
@@ -65,6 +66,7 @@ function AuthProvider({ children }) {
   
     const value = {
       currentUser,
+      currentUserData,
       login,
       signup,
       logout,

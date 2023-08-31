@@ -74,7 +74,7 @@ const LoginForm = () => {
               id="password"
             />
           </div>
-          <button type="submit">Login</button>
+          <button className="button" type="submit">Login</button>
           <p className="para" style={{ textAlign: "center" }}>
             If you are not a user please click here to{" "}
             <Link className="para-link" to="/signup">sign up</Link>

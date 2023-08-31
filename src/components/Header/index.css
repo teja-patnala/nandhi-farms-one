@@ -58,6 +58,8 @@ body, h1, h2, h3, p, ul {
   
   .logout-button:hover {
     background-color: #0056b3;
+    transform: scale(1.1);
+    font-weight: bold;
   }
   
   @media (max-width: 768px) {

@@ -65,12 +65,11 @@
     border: 1px solid #ccc;
     border-radius: 3px;
   }
-  
-  button {
+  .button {
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #43C6DB;
+    background-color: #943e91;
     color: #fff;
     border: none;
     border-radius: 3px;
@@ -78,8 +77,8 @@
     transition: background-color 0.3s, transform 0.3s;
   }
   
-  button:hover {
-    background-color: #6C2DC7;
+  .button:hover {
+    background-color: #349696;
     font-weight: bold;
     transform: scale(1.05); /* Apply a slight scale on hover */
   }
