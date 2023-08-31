@@ -1,12 +1,17 @@
 import React from "react"; 
 import { useNavigate } from "react-router-dom";
+import {useAuth} from "../../context/AuthContext"
 import "./index.css"; // You can create a CSS file for styling
 import Header from "../Header"
+import ReactPopUp from '../AdminPopUpModel';
 
 function Home() {
   const navigate = useNavigate()
+  const {isAdminOfNandhi} = useAuth()
+  console.log(isAdminOfNandhi)
   return (
     <div className="homepage">
+      <ReactPopUp adminStatus={isAdminOfNandhi.current}/>
       <Header/>
       <section className="hero">
         <h1>Welcome to Nandhi Farms</h1>

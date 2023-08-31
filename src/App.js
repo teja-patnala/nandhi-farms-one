@@ -7,26 +7,27 @@ import ForgotPasswordForm from "./components/ForgotPasswordForm";
 import PasswordChangeForm from "./components/PasswordChangeForm";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFoundPage from "./components/NotFound";
-import AuthProvider from "./context/AuthContext"
+import AuthProvider from "./context/AuthContext";
 import AboutUs from "./components/AboutUs";
-import  SubscriptionForm from "./components/SubscriptionForm"
+import SubscriptionForm from "./components/SubscriptionForm";
 import ContactForm from "./components/ContactUs";
-
-
+import AdminPage from "./components/AdminPage";
+import AdminProtectedRoute from "./components/AdminProtectedRoute"
 
 const App = () => (
   <BrowserRouter>
     <AuthProvider>
       <Routes>
-        <Route exact path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-        <Route exact path="/login" element={<LoginForm />} />
-        <Route exact path="/signup" element={<SignUpForm />} />
-        <Route exact path="/forgot-password" element={<ForgotPasswordForm />} />
-        <Route exact path="/change-password" element={<ProtectedRoute><PasswordChangeForm /></ProtectedRoute>} />
-        <Route exact path="/about" element={<ProtectedRoute><AboutUs/>s</ProtectedRoute>}/>
-        <Route exact path="/contact" element={<ProtectedRoute><ContactForm/></ProtectedRoute>}/>
-        <Route exact path="/subscribe" element={<ProtectedRoute><SubscriptionForm/></ProtectedRoute>}/>
-        <Route element={<NotFoundPage/>}/>
+        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/signup" element={<SignUpForm />} />
+        <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+        <Route path="/change-password" element={<ProtectedRoute><PasswordChangeForm /></ProtectedRoute>} />
+        <Route path="/about" element={<ProtectedRoute><AboutUs /></ProtectedRoute>} />
+        <Route path="/contact" element={<ProtectedRoute><ContactForm /></ProtectedRoute>} />
+        <Route path="/subscribe" element={<ProtectedRoute><SubscriptionForm /></ProtectedRoute>} />
+        <Route path="/admin" element={<AdminProtectedRoute><AdminPage /></AdminProtectedRoute>} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </AuthProvider>
   </BrowserRouter>

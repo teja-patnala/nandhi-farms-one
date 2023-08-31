@@ -22,7 +22,7 @@ function SignUpForm() {
     subscription:false,
     litersOfMilk:0,
     noDaysSuppliesMilk:0,
-    otpForMilkCollection: 0
+    otpForMilkCollection: 0,
   });
 
   const {signup} = useAuth()
@@ -60,16 +60,20 @@ function SignUpForm() {
       cart:formData.cart,
       subscription:formData.subscription,
       litersOfMilk:formData.litersOfMilk,
-      noDaysSuppliesMilk:formData.noDaysSuppliesMilk
-
+      noDaysSuppliesMilk:formData.noDaysSuppliesMilk,
+      otpForMilkCollection:formData.otpForMilkCollection,
+      transaction:{},
+      isAdmin:false
     }
-      signup(formData.email, formData.password)
+    
+    signup(formData.email, formData.password)
       .then(async() => {
         try{
           const docRef = await addDoc(collection(db,"users"),{...userFormData,timeStamp:serverTimestamp()});
           console.log("Document written with ID ",docRef.id)
         }catch(e){
           console.error("Errpr adding document:  ",e)
+          alert(e)
         }
         setSignupStatus(true)
       })

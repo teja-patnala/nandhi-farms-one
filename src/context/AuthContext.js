@@ -1,5 +1,7 @@
-import React, {useEffect,useState,useContext} from "react"
+import React, {useEffect,useState,useContext,useRef} from "react"
 import app from "../firebase"
+import {db} from "../firestore"
+import {collection,query,where,getDocs,} from 'firebase/firestore';
 import {getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword,sendPasswordResetEmail} from "firebase/auth";
 
 
@@ -11,58 +13,73 @@ export function useAuth(){
 
 const auth = getAuth(app)
 
-function AuthProvider({children}){
-    const [currentUser,setCurrentUser] = useState()
-    const [loading,setLoading] = useState(true)
+// ... (imports and context creation)
 
-
+function AuthProvider({ children }) {
+    const [currentUser, setCurrentUser] = useState();
+    const [loading, setLoading] = useState(true);
+  
     function signup(email, password) {
-        return createUserWithEmailAndPassword(auth,email, password)
+      return createUserWithEmailAndPassword(auth, email, password);
     }
-    
+  
     function login(email, password) {
-        return signInWithEmailAndPassword(auth,email, password)
+      return signInWithEmailAndPassword(auth, email, password);
     }
-    
+  
     function logout() {
-        return auth.signOut()
+      return auth.signOut();
     }
-    
+  
     function resetPassword(email) {
-        return sendPasswordResetEmail(auth,email)
+      return sendPasswordResetEmail(auth, email);
     }
-    
+  
     function updateEmail(email) {
-        return currentUser.updateEmail(email)
+      return currentUser.updateEmail(email);
     }
-    
+  
     function updatePassword(password) {
-        return currentUser.updatePassword(password)
+      return currentUser.updatePassword(password);
     }
-
-    useEffect(()=>{
-        const unsubscribe = auth.onAuthStateChanged((user)=>{
-            setCurrentUser(user)
-            setLoading(false)
-        })
-        return unsubscribe
-    },[])
-    
+  
+    const isAdminOfNandhi = useRef();
+  
+    useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged(async (user) => {
+        setCurrentUser(user);
+        setLoading(false);
+  
+        if (user) {
+          const q = query(collection(db, "users"), where("email", "==", user.email));
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+            const userData = doc.data();
+            console.log(userData)
+            isAdminOfNandhi.current = userData.isAdmin;
+          });
+        }
+      });
+      return unsubscribe;
+    });
+  
     const value = {
-        currentUser,
-        login,
-        signup,
-        logout,
-        resetPassword,
-        updateEmail,
-        updatePassword
-    }
-
-    return(
-        <AuthContext.Provider value = {value}>
-            {!loading && children}
-        </AuthContext.Provider>
-    )
-}
-
-export default AuthProvider
+      currentUser,
+      login,
+      signup,
+      logout,
+      resetPassword,
+      updateEmail,
+      updatePassword,
+      isAdminOfNandhi,
+    };
+  
+    return (
+      <AuthContext.Provider value={value}>
+        {!loading && children}
+      </AuthContext.Provider>
+    );
+  }
+  
+  export default AuthProvider;
+  

@@ -1,0 +1,114 @@
+.overlay {
+  border-width: 0;
+  margin: 0;
+}
+
+.popup-content {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  border-width: 0;
+  margin: 10px;
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px; /* Add padding to center content */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.popup-content.animate-text h3 {
+  animation: slideInLeftAnimation 1s ease-in-out;
+  text-align: center;
+  margin: 10px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.popup-content.animate-text h1 {
+  animation: slideInLeftAnimation 1s ease-in-out;
+  text-align: center;
+  margin: 10px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+.animate-link {
+  animation: slideInLeftAnimation 1s ease-in-out;
+  text-decoration: none;
+  text-align: center;
+  color: #007bff;
+  margin-top: 10px;
+  animation: slideInLeftAnimation 1s ease-in-out;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+@keyframes slideInLeftAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.admin-image {
+  width: 300px;
+  animation: fadeInAnimation 1s ease-in-out;
+  animation: zoomAnimation 3s infinite alternate; /* Add zoom animation */
+}
+
+.admin-container{
+  margin-left: 30px;
+}
+
+@keyframes zoomAnimation {
+  0%, 100% {
+    transform: scale(1); /* Normal size */
+  }
+  50% {
+    transform: scale(1.1); /* Zoomed-in size */
+  }
+}
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+  .popup-content.animate-text h1 {
+    font-size: 24px;
+  }
+  .popup-content.animate-text h3 {
+    font-size: 18px;
+  }
+}
+
+
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+  .popup-content {
+    padding: 10px; /* Adjust padding for smaller screens */
+    flex-direction: column;
+  }
+  
+  .admin-image {
+    max-width: 35%; /* Adjust image size for smaller screens */
+  }
+
+  .admin-container{
+    margin-left: 0px;
+  }m
+  
+
+  .popup-content.animate-text h1 {
+    font-size: 24px;
+  }
+
+  .popup-content.animate-text h3 {
+    font-size: 18px;
+  }
+}

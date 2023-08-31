@@ -1,0 +1,31 @@
+.table-container {
+    height:100%; /* Set the desired max height for scrolling */
+    overflow: auto; /* Enable vertical scrolling if content overflows */
+  }
+  
+  .orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+  }
+  
+  .table-row {
+    background-color: rgba(0, 0, 0, 0.3); /* Background color with transparency */
+    color: #f4a950; /* Font color is white */
+    transition: background-color 0.3s ease; /* Transition animation for background color change */
+  }
+  
+  .table-row:hover {
+    background-color: rgba(120, 71, 200, 0.6); /* Darker background color on hover */
+  }
+  
+  .orders-table th{
+    border: 1px solid white;
+  }
+  .orders-table td {
+    color:white;
+    border: 1px solid white;
+    padding: 8px;
+    text-align: left;
+  }
+  

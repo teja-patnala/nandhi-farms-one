@@ -1,36 +1,118 @@
 import React, { useState, useEffect } from 'react';
-import Header from "../Header"
+import { collection, doc, query, where, getDocs, setDoc } from 'firebase/firestore';
+import { db } from '../../firestore';
+import { useAuth } from '../../context/AuthContext';
+
+
+import Header from '../Header';
 import './index.css';
 
-
 const SubscriptionForm = () => {
-  const [selectedDays, setSelectedDays] = useState();
+  const [selectedDays, setSelectedDays] = useState(0);
   const [tomorrowsDate, setTomorrowsDate] = useState();
   const [endDate, setEndDate] = useState();
-  const [liters,setLiters] = useState(0);
-  const [amount,setAmount] = useState(0);
+  const [liters, setLiters] = useState(0);
+  const [amount, setAmount] = useState(0);
   const [showStats, setShowStats] = useState(false);
-  
+  const { currentUser} = useAuth();
+
   function getFutureDate(daysToAdd) {
     const today = new Date();
     const futureDate = new Date(today);
     futureDate.setDate(today.getDate() + daysToAdd);
     return futureDate.toDateString();
   }
+  
+  let userData;
+  let userId;
 
-  useEffect(()=>{
-    if(selectedDays!==0){
-      setTomorrowsDate(getFutureDate(1))
-      setEndDate(getFutureDate(selectedDays))
-    }
-    if(liters!==0 && selectedDays!==0){
-      setShowStats(true)
-      setAmount(selectedDays*liters*60)
-    }else{
-      setShowStats(false)
-    }
-  },[selectedDays,endDate,tomorrowsDate,liters])
+  async function updateFirestore(id) {
+    const q = query(collection(db, 'users'), where('email', '==', currentUser.email));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      userData = doc.data();
+      userId = doc.id;
+    });
 
+    const docRef = doc(db, 'users', userId);
+    const payload = {
+      ...userData,
+      subscription: true,
+      litersOfMilk: liters,
+      noDaysSuppliesMilk: selectedDays,
+      transactions: { [new Date().toISOString()]: id, ...userData.transactions },
+    };
+
+    try {
+      await setDoc(docRef, payload);
+      console.log('Firestore updated successfully');
+    } catch (error) {
+      console.error('Error updating Firestore:', error);
+    }
+  }
+
+  useEffect(() => {
+    if (selectedDays !== 0) {
+      setTomorrowsDate(getFutureDate(1));
+      setEndDate(getFutureDate(selectedDays));
+    }
+    if (liters !== 0 && selectedDays !== 0) {
+      setShowStats(true);
+      setAmount(selectedDays * liters * 60);
+    } else {
+      setShowStats(false);
+    }
+  }, [selectedDays, endDate, tomorrowsDate, liters]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (amount === 0) {
+      alert('Please enter amount');
+    } else {
+      var options = {
+        key: 'rzp_test_P8LzMHrBgBQ7Y0',
+        key_secret: '14BZ4AkfZioI41FGsGzM9VrT',
+        amount: amount * 100,
+        currency: 'INR',
+        name: 'NANDHI FARMS',
+        description: 'for testing purpose',
+        handler: function (response) {
+          updateFirestore(response.razorpay_payment_id);
+        },
+        prefill: {
+          name: 'patnala venkata teja',
+          email: 'patnalatejaa@gmail.com',
+          contact: '9848931589',
+        },
+        notes: {
+          address: 'Razorpay Corporate office',
+        },
+        theme: {
+          color: '#3399cc',
+        },
+      };
+
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => {
+        try {
+          const pay = new window.Razorpay(options);
+          pay.open();
+        } catch (error) {
+          console.error('Error loading or initializing Razorpay:', error);
+        }
+      };
+      script.onerror = (error) => {
+        console.error('Error loading Razorpay script:', error);
+        alert(error);
+      };
+      document.body.appendChild(script);
+    }
+  };
+
+  console.log()
+
+  
   return (
     <div className='main-payment-container'>
       <Header/>
@@ -62,7 +144,7 @@ const SubscriptionForm = () => {
             }
           </div>
           <div className="pay-button-container">
-            <button value = {amount} className="pay-button">{selectedDays * 60 *liters} rupees - Pay Now</button>
+            <button value = {amount} onClick={handleSubmit} className="pay-button">{selectedDays * 60 *liters} rupees - Pay Now</button>
           </div>
         </div>
     </div>
