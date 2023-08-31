@@ -44,7 +44,7 @@ function AuthProvider({ children }) {
     }
   
     const isAdminOfNandhi = useRef();
-    const currentUserData = useRef();
+    const currentUserDataOne = useRef();
   
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -57,7 +57,7 @@ function AuthProvider({ children }) {
           querySnapshot.forEach((doc) => {
             const userData = doc.data();
             isAdminOfNandhi.current = userData.isAdmin;
-            currentUserData.current = userData
+            currentUserDataOne.current = userData
           });
         }
       });
@@ -66,7 +66,7 @@ function AuthProvider({ children }) {
   
     const value = {
       currentUser,
-      currentUserData,
+      currentUserDataOne,
       login,
       signup,
       logout,
@@ -81,6 +81,10 @@ function AuthProvider({ children }) {
         {!loading && children}
       </AuthContext.Provider>
     );
+  }
+
+  export const useMyContext = () =>{
+    return useContext(AuthContext)
   }
   
   export default AuthProvider;

@@ -104,7 +104,7 @@ const AdminPage = () => {
               <Popup
               modal
               trigger={
-              <button type="button" className="trigger-button">
+              <button type="button" className="button">
                 Notify
               </button>
               }>

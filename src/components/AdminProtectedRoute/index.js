@@ -36,7 +36,7 @@ export default function AdminProtectedRoute({ children }) {
     return isAdmin ? <>{children}</> : <Navigate to = "/"/>
   }
 
-  return !loadResult ? (<div className="loader-container">
+  return !loadResult ? (<div className="loader-container-one">
       <BallTriangle type="Puff" color="#00BFFF" height={100} width={100} />
      </div>) : getTheResult()
 }

@@ -18,7 +18,7 @@ const ReactPopUp = ({ adminStatus }) => (
             <div className="admin-container">
               <h1 className="slide-in-left">Hello Admin</h1>
               <h3 className="slide-in-left">Your interface is ready</h3>
-              <Link className="link animate-link" to="/admin">Click here,<br/> I will take you to your interface</Link>
+              <Link className="animate-link" to="/admin">Click here</Link>
             </div>
         </div>
         </Popup>

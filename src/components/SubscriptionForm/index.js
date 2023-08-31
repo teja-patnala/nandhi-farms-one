@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { collection, doc, query, where, getDocs, setDoc } from 'firebase/firestore';
 import { db } from '../../firestore';
 import { useAuth } from '../../context/AuthContext';
-
-
 import Header from '../Header';
+import SubscriptionPopup from "../SubscriptionPopup"
 import './index.css';
 
 const SubscriptionForm = () => {
@@ -109,14 +108,12 @@ const SubscriptionForm = () => {
       document.body.appendChild(script);
     }
   };
-
-  console.log()
-
-  
+  console.log(userData)
   return (
     <div className='main-payment-container'>
       <Header/>
       <div className="payment-container">
+        <SubscriptionPopup userData={userData}/>
           <h2 className="heading">Select Number of Days</h2>
           <select className='select' value={selectedDays} onChange={(e)=>setSelectedDays(parseInt(e.target.value))}>
             <option value={0}>0 day</option>

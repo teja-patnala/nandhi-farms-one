@@ -25,6 +25,13 @@ body, h1, h2, h3, p, ul {
   .logo {
     font-size: 1.5rem;
     font-weight: bold;
+    transition: brightness 0.3s ease-in,transform 0.3s ease-in-out;
+    filter: brightness(1);
+  }
+  .logo:hover{
+    filter:brightness(1.5);
+    color:rgb(121, 66, 173);
+    transform: rotateX(360deg);
   }
   
   .nav {

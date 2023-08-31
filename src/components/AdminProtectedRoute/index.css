@@ -1,9 +1,9 @@
-.loader-container {
+.loader-container-one {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh; /* Adjust this value based on your layout */
-  background-color: rgba(73, 76, 86, 0.5); /* Semi-transparent background */
+  background-color:#161b21; /* Semi-transparent background */
   position: fixed;
   top: 0;
   left: 0;

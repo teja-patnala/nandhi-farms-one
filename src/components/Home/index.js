@@ -1,22 +1,44 @@
-import React from "react"; 
+import React,{useState,useEffect} from "react"; 
 import { useNavigate,Link } from "react-router-dom";
-import {useAuth} from "../../context/AuthContext"
+import {collection,query,where,getDocs,} from 'firebase/firestore';
+import {useAuth} from "../../context/AuthContext";
+import LoaderPopup from "../LoaderPopup";
+import { db } from '../../firestore';
 import "./index.css"; // You can create a CSS file for styling
-import Header from "../Header"
+import Header from "../Header";
 import ReactPopUp from '../AdminPopUpModel';
 
 function Home() {
+  const [load,setLoading] = useState(true)
+  const [currentUserData, setCurrentUserData] = useState({})
+  const {currentUser} = useAuth()
   const navigate = useNavigate()
-  const {isAdminOfNandhi,currentUserData} = useAuth()
-  console.log(currentUserData.current)
+  useEffect(() => {
+    async function gettingUserData() {
+      const q = query(collection(db, "users"), where("email", "==", currentUser.email));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        const userData = doc.data();
+        setCurrentUserData(userData);
+        setLoading(false);
+
+      });
+    }
+    gettingUserData()
+    console.log(currentUserData)
+  }, [currentUser.email,currentUserData]);
+
   return (
     <div className="homepage">
-      <ReactPopUp adminStatus={isAdminOfNandhi.current}/>
+      <LoaderPopup loadStatus = {load}/>
+      <ReactPopUp adminStatus={currentUserData.isAdmin}/>
       <Header/>
       <section className="hero">
         <h1>Welcome to Nandhi Farms</h1>
         <p>Get fresh and pure milk delivered to your doorstep daily.</p>
-        <button onClick={()=>navigate("/subscribe")}>Subscribe to Our Organic Milk</button><br/>
+        <button onClick={()=>navigate("/subscribe")}>{currentUserData.subscription ? "You are a Subscriber":"Subscribe to Our Organic Milk"}</button><br/>
+        <p>OTP for milk collection</p>
+        <button className="button-one" type = "button">{currentUserData.otpForMilkCollection}</button>
       </section>
 
       <section className="featured-products">
