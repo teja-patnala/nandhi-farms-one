@@ -1,0 +1,41 @@
+.anounce-container{
+    padding: 20px;
+    flex-grow: 1;
+}
+.anounce-container h1{
+    font-size: 20px;
+    text-align: center;
+}
+.form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+.meat-input-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+.meat-input-container input{
+    max-width: 80px;
+    height: 10px;
+    margin: 10px;
+}
+.meat-input-container label{
+    color: #f4a950;
+}
+.submit-button{
+    width:80px ;
+}
+
+@media screen and (max-width:768px){
+    .form{
+        flex-direction: column;
+    }
+    .submit-button{
+        width:180px ;
+    }
+
+}

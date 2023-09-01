@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { collection,query,doc,setDoc, where, getDocs } from 'firebase/firestore';
 import { useAuth } from '../../context/AuthContext';
 import { db } from '../../firestore';
-//import {TOTP} from "otpauth";
 import MilkOrders from '../MilkOrders';
+import MeatOrders from "../MeatOrders";
+import MilkProductOrders from "../MilkProductOrders"
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 import { useNavigate } from 'react-router-dom';
@@ -90,6 +91,18 @@ const AdminPage = () => {
     }
   }
   
+  function getTheComponent(title){
+    switch(title){
+      case "Milk Orders":
+        return <MilkOrders/>
+      case "Meat Orders":
+        return <MeatOrders/>
+      case "Milk Product Orders":
+        return <MilkProductOrders/>
+      default:
+        return null
+    }
+  }
 
   return (
     <div className="admin-page">
@@ -98,7 +111,7 @@ const AdminPage = () => {
         <ul>
           <li><button onClick={(e=>setTitle("Meat Orders"))} className='button' type="button">Meat Orders</button></li>
           <li><button onClick={(e=>setTitle("Milk Product Orders"))}  className='button' type="button">Milk Products Orders</button></li>
-          <li><button onClick={(e=>setTitle("Meat Orders"))}  className='button'>Milk Orders</button></li>
+          <li><button onClick={(e=>setTitle("Milk Orders"))}  className='button'>Milk Orders</button></li>
           <li>
             <div className="popup-container">
               <Popup
@@ -134,7 +147,7 @@ const AdminPage = () => {
       <div className='main-container'>
         <h1 className='sub-heading'>{title}</h1>
         <div className='sub-main-container'>
-          <MilkOrders/>
+          {getTheComponent(title)}
         </div>
       </div>
     </div>

@@ -11,8 +11,9 @@ import ReactPopUp from '../AdminPopUpModel';
 function Home() {
   const [load,setLoading] = useState(true)
   const [currentUserData, setCurrentUserData] = useState({})
-  const {currentUser} = useAuth()
+  const {currentUser,setMyValue} = useAuth()
   const navigate = useNavigate()
+  
   useEffect(() => {
     async function gettingUserData() {
       const q = query(collection(db, "users"), where("email", "==", currentUser.email));
@@ -21,12 +22,11 @@ function Home() {
         const userData = doc.data();
         setCurrentUserData(userData);
         setLoading(false);
-
+        setMyValue(currentUserData);
       });
     }
     gettingUserData()
-    console.log(currentUserData)
-  }, [currentUser.email,currentUserData]);
+  }, [currentUser.email,currentUserData,setMyValue]);
 
   return (
     <div className="homepage">
@@ -37,8 +37,8 @@ function Home() {
         <h1>Welcome to Nandhi Farms</h1>
         <p>Get fresh and pure milk delivered to your doorstep daily.</p>
         <button onClick={()=>navigate("/subscribe")}>{currentUserData.subscription ? "You are a Subscriber":"Subscribe to Our Organic Milk"}</button><br/>
-        <p>OTP for milk collection</p>
-        <button className="button-one" type = "button">{currentUserData.otpForMilkCollection}</button>
+        {currentUserData.subscription&&<p>OTP for milk collection</p>}
+        {currentUserData.subscription&&<button className="button-one" type = "button">{currentUserData.otpForMilkCollection}</button>}
       </section>
 
       <section className="featured-products">
@@ -49,12 +49,13 @@ function Home() {
             <p>Fresh and organic milk from local farms.</p>
           </div>
         </Link>
-        <div className="product-card">
-          <img className="product-logo" src="https://res.cloudinary.com/dxx7ni6cl/image/upload/v1692545982/healthy-food-ingredients-black-table_1_pwe5ye.jpg" alt="Product 2" />
-          <h3>Nourishing Delights</h3>
-          <p>Farm-fresh meats and eggs, sourced just for you</p>
-        </div>
-
+        <Link className="product-card" to = "/meat">
+          <div>
+            <img className="product-logo" src="https://res.cloudinary.com/dxx7ni6cl/image/upload/v1692545982/healthy-food-ingredients-black-table_1_pwe5ye.jpg" alt="Product 2" />
+            <h3>Nourishing Delights</h3>
+            <p>Farm-fresh meats and eggs, sourced just for you</p>
+          </div>
+        </Link>
         <div className="product-card">
           <img className="product-logo"  src="https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1692547993/different-types-of-dairy-products-royalty-free-image-1568741374_mqhhdb.jpg" alt="Product 3" />
           <h3>Dairy Delights</h3>

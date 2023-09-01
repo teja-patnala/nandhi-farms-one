@@ -22,7 +22,7 @@ function Header() {
       <div className="nav-logout-container">
         <nav className="nav">
           <a href="/">Home</a>
-          <a href="/products">Products</a>
+          <a href="/orders">orders</a>
           <a href="/about">About<span>_</span>us</a>
           <a href="/contact">Contact</a>
         </nav>

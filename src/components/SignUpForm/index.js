@@ -63,7 +63,9 @@ function SignUpForm() {
       noDaysSuppliesMilk:formData.noDaysSuppliesMilk,
       otpForMilkCollection:formData.otpForMilkCollection,
       transaction:{},
-      isAdmin:false
+      isAdmin:false,
+      milkSupliesStartsFrom:"",
+      milkSupliesEnd:""
     }
     
     signup(formData.email, formData.password)

@@ -13,6 +13,8 @@ import SubscriptionForm from "./components/SubscriptionForm";
 import ContactForm from "./components/ContactUs";
 import AdminPage from "./components/AdminPage";
 import AdminProtectedRoute from "./components/AdminProtectedRoute"
+import MeatOrdersForm from "./components/MeatOrdersForm";
+import CartForm from "./components/CartForm"
 
 const App = () => (
   <BrowserRouter>
@@ -25,11 +27,13 @@ const App = () => (
         <Route path="/change-password" element={<ProtectedRoute><PasswordChangeForm /></ProtectedRoute>} />
         <Route path="/about" element={<ProtectedRoute><AboutUs /></ProtectedRoute>} />
         <Route path="/contact" element={<ProtectedRoute><ContactForm /></ProtectedRoute>} />
+        <Route path="/orders" element={<ProtectedRoute><CartForm /></ProtectedRoute>} />
         <Route path="/subscribe" element={<ProtectedRoute><SubscriptionForm /></ProtectedRoute>} />
+        <Route path="/meat" element={<ProtectedRoute><MeatOrdersForm /></ProtectedRoute>} />
         <Route path="/admin" element={<AdminProtectedRoute><AdminPage /></AdminProtectedRoute>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </AuthProvider>
+    </AuthProvider>  
   </BrowserRouter>
 );
 

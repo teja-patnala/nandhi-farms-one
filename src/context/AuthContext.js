@@ -18,6 +18,7 @@ const auth = getAuth(app)
 function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
+    const [currentUserDataOne,setMyValue] = useState({})
   
     function signup(email, password) {
       return createUserWithEmailAndPassword(auth, email, password);
@@ -44,7 +45,6 @@ function AuthProvider({ children }) {
     }
   
     const isAdminOfNandhi = useRef();
-    const currentUserDataOne = useRef();
   
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -57,7 +57,7 @@ function AuthProvider({ children }) {
           querySnapshot.forEach((doc) => {
             const userData = doc.data();
             isAdminOfNandhi.current = userData.isAdmin;
-            currentUserDataOne.current = userData
+            setMyValue(userData)
           });
         }
       });
@@ -74,6 +74,7 @@ function AuthProvider({ children }) {
       updateEmail,
       updatePassword,
       isAdminOfNandhi,
+      setMyValue
     };
   
     return (

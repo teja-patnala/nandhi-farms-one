@@ -9,11 +9,11 @@ import './index.css';
 const SubscriptionForm = () => {
   const [selectedDays, setSelectedDays] = useState(0);
   const [tomorrowsDate, setTomorrowsDate] = useState();
+  const {currentUser,currentUserDataOne,setMyValue} = useAuth();
   const [endDate, setEndDate] = useState();
   const [liters, setLiters] = useState(0);
   const [amount, setAmount] = useState(0);
   const [showStats, setShowStats] = useState(false);
-  const { currentUser} = useAuth();
 
   function getFutureDate(daysToAdd) {
     const today = new Date();
@@ -32,21 +32,23 @@ const SubscriptionForm = () => {
       userData = doc.data();
       userId = doc.id;
     });
-
     const docRef = doc(db, 'users', userId);
     const payload = {
       ...userData,
       subscription: true,
       litersOfMilk: liters,
       noDaysSuppliesMilk: selectedDays,
+      milkSupliesStartsFrom:tomorrowsDate,
+      milkSupliesEnd:getFutureDate(selectedDays-1),
       transactions: { [new Date().toISOString()]: id, ...userData.transactions },
     };
+    setMyValue(payload)
 
     try {
       await setDoc(docRef, payload);
-      console.log('Firestore updated successfully');
+
     } catch (error) {
-      console.error('Error updating Firestore:', error);
+      alert('Error updating Firestore:', error);
     }
   }
 
@@ -108,12 +110,11 @@ const SubscriptionForm = () => {
       document.body.appendChild(script);
     }
   };
-  console.log(userData)
   return (
     <div className='main-payment-container'>
       <Header/>
       <div className="payment-container">
-        <SubscriptionPopup userData={userData}/>
+        <SubscriptionPopup userData={currentUserDataOne}/>
           <h2 className="heading">Select Number of Days</h2>
           <select className='select' value={selectedDays} onChange={(e)=>setSelectedDays(parseInt(e.target.value))}>
             <option value={0}>0 day</option>
@@ -141,7 +142,7 @@ const SubscriptionForm = () => {
             }
           </div>
           <div className="pay-button-container">
-            <button value = {amount} onClick={handleSubmit} className="pay-button">{selectedDays * 60 *liters} rupees - Pay Now</button>
+            <button disabled={currentUserDataOne.subscription} value = {amount} onClick={handleSubmit} className="pay-button">{selectedDays * 60 *liters} rupees - Pay Now</button>
           </div>
         </div>
     </div>
