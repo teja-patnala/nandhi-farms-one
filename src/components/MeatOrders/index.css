@@ -15,6 +15,7 @@
 .meat-input-container{
     display: flex;
     align-items: center;
+    overflow: auto;
     justify-content: center;
     flex-direction: row;
 }
@@ -28,6 +29,9 @@
 }
 .submit-button{
     width:80px ;
+}
+label{
+    width: 150px;
 }
 
 @media screen and (max-width:768px){

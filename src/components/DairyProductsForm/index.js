@@ -8,14 +8,13 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import './index.css';
 
-function MeatOrdersForm() {
+function DairyProductsForm() {
   const [cart, setCart] = useState({});
-  const [meatData,setMeatData] = useState({})
-  const [chicken, setChicken] = useState(0);
-  const [mutton, setMutton] = useState(0);
-  const [eggs, setEggs] = useState(0);
+  const [productsData,setMeatData] = useState({})
+  const [curd, setCurd] = useState(0);
+  const [ghee, setGhee] = useState(0);
+  const [honey, setHoney] = useState(0);
   const {currentUserDataOne,setMyValue} = useAuth()
-
 
 
   function getTomorrowDate() {
@@ -29,22 +28,22 @@ function MeatOrdersForm() {
     return `${day}, ${date} ${month} ${year}`;
   }
 
-  function addChickenQuantity(e) {
+  function addCurdQuantity(e) {
     e.preventDefault();
-    setCart({ ...cart, chicken });
-    setChicken(0);
+    setCart({ ...cart, curd });
+    setCurd(0);
   }
 
-  function addMuttonQuantity(e) {
+  function addGheeQuantity(e) {
     e.preventDefault();
-    setCart({ ...cart, mutton });
-    setMutton(0);
+    setCart({ ...cart, ghee });
+    setGhee(0);
   }
 
-  function addEggsQuantity(e) {
+  function addHoneyQuantity(e) {
     e.preventDefault();
-    setCart({ ...cart, eggs });
-    setEggs(0);
+    setCart({ ...cart, honey});
+    setHoney(0);
   }
 
   let userData;
@@ -52,27 +51,26 @@ function MeatOrdersForm() {
 
 
   async function updateFirestoreMeatQuantity(data){
-    const {chicken,mutton,eggs} = data;
+    const {curd,honey,ghee} = data;
 
-    let c = chicken !== undefined?chicken:0
-    let m = mutton !== undefined?mutton:0
-    let e = eggs !== undefined?eggs:0
+    let c = curd !== undefined?curd:0
+    let h = honey !== undefined?honey:0
+    let g = ghee !== undefined?ghee:0
     try {
-      const docRef = doc(db, "meatQuantity", "quantity");
+      const docRef = doc(db, "productsQuantity", "quantity");
       const docSnap = await getDoc(docRef);
   
       if (docSnap.exists()) {
         // Access the data from the document
         const data = docSnap.data();
         const newQuantity = {
-          ...meatData,
-          chickenQuantity: data.chickenQuantity-c,
-          muttonQuantity: data.muttonQuantity-m,
-          eggsQuantity : data.eggsQuantity-e
+          curdQuantity: data.curdQuantity-c,
+          gheeQuantity: data.gheeQuantity-h,
+          honeyQuantity : data.honeyQuantity-g
         }
 
         try{
-          await setDoc(doc(db, "meatQuantity", "quantity"), newQuantity);
+          await setDoc(doc(db, "productsQuantity", "quantity"), newQuantity);
           setCart({})
         }catch(error){
           alert(error.message)
@@ -97,7 +95,7 @@ function MeatOrdersForm() {
     const payload = {
       ...userData,
       orders:[...userData.orders,{date:getTomorrowDate(),delivaryStatus:false,items :{cart},payment:amount}],
-      transactions: { [new Date().toISOString()+" Meat"]: id, ...userData.transactions },
+      transactions: { [new Date().toISOString()+" Products"]: id, ...userData.transactions },
     };
     setMyValue(payload)
 
@@ -155,14 +153,14 @@ function MeatOrdersForm() {
   useEffect(() => {
     async function getTheMeatQuantity(){
       try {
-        const docRef = doc(db, "meatQuantity", "quantity");
+        const docRef = doc(db, "productsQuantity", "quantity");
         const docSnap = await getDoc(docRef);
         
         if (docSnap.exists()) {
           // Use data() method to access the document data
-          const meatData = docSnap.data();
-          setMeatData(meatData)
-          console.log(meatData)
+          const productsData = docSnap.data();
+          setMeatData(productsData)
+          console.log(productsData)
         } else {
           console.log("Document does not exist");
         }
@@ -172,7 +170,7 @@ function MeatOrdersForm() {
       }
     }
     getTheMeatQuantity();
-  },[cart,meatData]);
+  },[cart,productsData]);
 
   function getTheCostOfItem(){
     let cost = 0
@@ -181,13 +179,13 @@ function MeatOrdersForm() {
       cost = 0
     }else{
       for (let a of keys){
-        if(a==="chicken"){
-          cost+=meatData.chickenCost*cart[a]
+        if(a==="curd"){
+          cost+=productsData.curdCost*cart[a]
         }
-        else if(a === "mutton"){
-          cost+=meatData.muttonCost*cart[a]
+        else if(a === "honey"){
+          cost+=productsData.honeyCost*cart[a]
         }else{
-          cost += meatData.eggsCost*cart[a]
+          cost += productsData.gheeCost*cart[a]
         }
       }
     }
@@ -215,7 +213,7 @@ function MeatOrdersForm() {
                         <tr>
                           <th>Item</th>
                           <th>Quantity</th>
-                          <th>Cost/Kg</th>
+                          <th>Cost/liter</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -223,9 +221,9 @@ function MeatOrdersForm() {
                           <tr className='table-row' key={item}>
                             <td>{item}</td>
                             <td>{quantity}</td>
-                            {item ==="mutton" && <td>{meatData.muttonCost*quantity}</td>}
-                            {item ==="chicken" && <td>{meatData.chickenCost*quantity}</td>}
-                            {item ==="eggs" && <td>{meatData.eggsCost*quantity}</td>}
+                            {item ==="curd" && <td>{productsData.curdCost*quantity}</td>}
+                            {item ==="honey" && <td>{productsData.honeyCost*quantity}</td>}
+                            {item ==="ghee" && <td>{productsData.gheeCost*quantity}</td>}
                           </tr>
                         ))}
                       </tbody>
@@ -261,60 +259,60 @@ function MeatOrdersForm() {
         <div className="product-card1">
           <div className='meat-cart-container'>
             <div>
-              <img className="product-logo1" src="https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1693589949/frozen-chicken-curry-cut_iidftr.jpg" alt="Product 1" />
+              <img className="product-logo1" src="https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1693682005/homemade-dahi5_oidvvb.jpg" alt="Product 1" />
             </div>
             <div className='sub-meat-container'>
-              <form onSubmit={addChickenQuantity}>
+              <form onSubmit={addCurdQuantity}>
                 <div>
-                  <label htmlFor='chicken'>Enter Quantity</label>
-                  <input value={chicken} onChange={(e) => setChicken(parseInt(e.target.value))} placeholder='Enter in Liters' className='meat-cart-input' id="chicken" type="number" /><br />
-                  <button disabled={meatData.chickenQuantity===0} id='meat-button' type="submit">Add to Cart</button>
+                  <label htmlFor='curd'>Enter Quantity</label>
+                  <input value={curd} onChange={(e) => setCurd(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="curd" type="number" /><br />
+                  <button disabled={productsData.curdQuantity===0} id='meat-button' type="submit">Add to Cart</button>
                 </div>
               </form>
             </div>
           </div>
-          <h3>Natu Kodi Meat</h3>
-          <h4>cost : {meatData.chickenCost}/kg</h4>
-          <p>Available Quantity: {meatData.chickenQuantity} Kgs</p>
-          <p>{meatData.chickenQuantity===0&&"OUT OF STOCK"}</p>
+          <h3>Curd</h3>
+          <h4>cost : {productsData.curdCost}/liter</h4>
+          <p>Available Quantity: {productsData.curdQuantity} liters</p>
+          <p>{productsData.curdQuantity===0&&"OUT OF STOCK"}</p>
         </div>
         <div className="product-card1">
           <div className='meat-cart-container'>
             <div>
-              <img className="product-logo1" src="https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1693589948/Mutton-Curry-Cut-1_gajqh1.jpg" alt="Product 1" />
+              <img className="product-logo1" src="https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1693682006/ghee-recipe-homemade-indian-ghee-3_co1ysh.jpg" alt="Product 1" />
             </div>
             <div className='sub-meat-container'>
-              <form onSubmit={addMuttonQuantity}>
+              <form onSubmit={addGheeQuantity}>
                 <div>
-                  <label htmlFor='mutton'>Enter Quantity</label>
-                  <input value={mutton} onChange={(e) => setMutton(parseInt(e.target.value))} placeholder='Enter in Liters' className='meat-cart-input' id="mutton" type="number" />
+                  <label htmlFor='ghee'>Enter Quantity</label>
+                  <input value={ghee} onChange={(e) => setGhee(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="ghee" type="number" />
                   <button id='meat-button' type="submit">Add to Cart</button>
                 </div>
               </form>
             </div>
           </div>
-          <h3>Goat Meat</h3>
-          <h4>cost : {meatData.muttonCost}/kg</h4>
-          <p>Available Quantity: {meatData.muttonQuantity} kgs</p>
+          <h3>Ghee</h3>
+          <h4>cost : {productsData.gheeCost}/liter</h4>
+          <p>Available Quantity: {productsData.gheeQuantity} liters</p>
         </div>
         <div className="product-card1">
           <div className='meat-cart-container'>
             <div>
-              <img className="product-logo1" src="https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1693589948/health-benefits-of-eggs-1296x728-feature_ls8jis.jpg" alt="Product 1" />
+              <img className="product-logo1" src="https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1693682002/download_xq7kyd.jpg" alt="Product 1" />
             </div>
             <div className='sub-meat-container'>
-              <form onSubmit={addEggsQuantity}>
+              <form onSubmit={addHoneyQuantity}>
                 <div>
-                  <label htmlFor='eggs'>Enter Quantity</label>
-                  <input value={eggs} onChange={(e) => setEggs(parseInt(e.target.value))} placeholder='Enter in Liters' className='meat-cart-input' id="eggs" type="number" /><br />
+                  <label htmlFor='honey'>Enter Quantity</label>
+                  <input value={honey} onChange={(e) => setHoney(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="honey" type="number" /><br />
                   <button id='meat-button' type="submit">Add to Cart</button>
                 </div>
               </form>
             </div>
           </div>
-          <h3>Natu Kodi Eggs</h3>
-          <h4>cost : {meatData.eggsCost}/Egg</h4>
-          <p>Available Quantity: {meatData.eggsQuantity} Eggs</p>
+          <h3>Honey</h3>
+          <h4>cost : {productsData.honeyCost}/liter</h4>
+          <p>Available Quantity: {productsData.honeyQuantity} liters</p>
         </div>
       </section>
       <footer className="footer1">
@@ -324,4 +322,4 @@ function MeatOrdersForm() {
   );
 }
 
-export default MeatOrdersForm;
+export default DairyProductsForm;

@@ -56,11 +56,13 @@ function Home() {
             <p>Farm-fresh meats and eggs, sourced just for you</p>
           </div>
         </Link>
-        <div className="product-card">
-          <img className="product-logo"  src="https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1692547993/different-types-of-dairy-products-royalty-free-image-1568741374_mqhhdb.jpg" alt="Product 3" />
-          <h3>Dairy Delights</h3>
-          <p>A variety of dairy products to complement your meals.</p>
-        </div>
+        <Link className="product-card" to = "/products">
+          <div >
+            <img className="product-logo"  src="https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1692547993/different-types-of-dairy-products-royalty-free-image-1568741374_mqhhdb.jpg" alt="Product 3" />
+            <h3>Dairy Delights</h3>
+            <p>A variety of dairy products to complement your meals.</p>
+          </div>
+        </Link>
       </section>
 
       <footer className="footer">

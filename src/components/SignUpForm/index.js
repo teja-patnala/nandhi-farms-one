@@ -65,7 +65,8 @@ function SignUpForm() {
       transaction:{},
       isAdmin:false,
       milkSupliesStartsFrom:"",
-      milkSupliesEnd:""
+      milkSupliesEnd:"",
+      orders:[]
     }
     
     signup(formData.email, formData.password)

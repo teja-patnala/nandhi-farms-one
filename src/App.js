@@ -15,6 +15,7 @@ import AdminPage from "./components/AdminPage";
 import AdminProtectedRoute from "./components/AdminProtectedRoute"
 import MeatOrdersForm from "./components/MeatOrdersForm";
 import CartForm from "./components/CartForm"
+import DairProductsForm from "./components/DairyProductsForm"
 
 const App = () => (
   <BrowserRouter>
@@ -30,6 +31,7 @@ const App = () => (
         <Route path="/orders" element={<ProtectedRoute><CartForm /></ProtectedRoute>} />
         <Route path="/subscribe" element={<ProtectedRoute><SubscriptionForm /></ProtectedRoute>} />
         <Route path="/meat" element={<ProtectedRoute><MeatOrdersForm /></ProtectedRoute>} />
+        <Route path="/products" element={<ProtectedRoute><DairProductsForm /></ProtectedRoute>} />
         <Route path="/admin" element={<AdminProtectedRoute><AdminPage /></AdminProtectedRoute>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

@@ -1,0 +1,285 @@
+/* Reset some default styling */
+body, h1, h2, h3, p, ul{
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: sans-serif;
+  }
+  
+  /* Main container */
+  .homepage1 {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background-color:#17202A;
+  }
+  h4{
+    color: #80ca5e;
+    font-size: 16px;
+    margin-bottom: 3px;
+  }
+  p{
+    color: #80ca5e;
+  }
+  .hero1 {
+    text-align: center;
+    color: white;
+    padding: 10px;
+    background-color:#34282C;
+  }
+  
+  .hero1 h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.3s;
+    filter:brightness(1)
+  }
+  
+  .hero1 h1:hover{
+    filter: brightness(1.5)
+  }
+  
+  .hero1 p {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero1 button {
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    max-width: 500px;
+    margin: 0 auto; /* This will center the button horizontally */
+    transition: background-color 0.3s,;
+  }
+  
+  .button-one1{
+    background-color: #80ca5e;
+    color: white;
+    width: 120px;
+    padding: 0.5rem 1rem;
+    border: none;
+    margin: 10px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    max-width: 500px;
+    margin: 0 auto; /* This will center the button horizontally */
+    transition: background-color 0.3s,;
+  }
+  
+  .hero1 button:hover {
+    background-color: #0056b3;
+    font-weight: bold;
+    transform: scale(1.1);
+  }
+  
+  /* Featured products section */
+  .featured-products1 {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem 0;
+    background-color:transparent;
+  }
+  
+  .product-card1 {
+    border: 1px solid #ddd;
+    padding: 1.5rem;
+    max-width: 300px;
+    text-align: center;
+    border-radius: 5px;
+    background-color:#25383C;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+  
+  .product-card1 img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .product-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-card1:hover{
+    transform: scale(1.1);
+  }
+  
+  /* Footer */
+  .footer1 {
+    background-color:#25383C ;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    /* Position the footer at the bottom */
+    position: sticky;
+    bottom: 0;
+  }
+  .product-logo1{
+    height: 120px;
+    width: 120px;
+    border-radius: 120px;
+    background-size: cover;
+  }
+  .meat-cart-container{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .sub-meat-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 17px;
+  }
+  input{
+    margin-bottom: 6px;
+  }
+  
+  .meat-cart-input{
+    height: 7px;
+    max-width: 84px;
+  }
+  .cart-popup-container{
+    height: 90vh;
+    width: 90vw;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .para{
+    margin-bottom: 10px;
+    font-size: 17px;
+  }
+  .trigger-button {
+    background-color: rgb(92, 120, 52);
+    margin: auto;
+    width: 200px;
+    color: white; /* Set the text color to white for better visibility */
+    padding: 10px 20px; /* Adjust the padding as needed */
+    border: none; /* Remove the button border */
+    cursor: pointer; /* Change the cursor to a pointer on hover */
+    transition: background-color 0.3s; /* Add a smooth transition effect */
+  }
+  .table{
+    width: 80%;
+    overflow-y: scroll;
+  }
+  
+  /* App.css */
+  
+  .table-responsive {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: black; /* Set the background color to black */
+    color: rgb(34, 70, 216); /* Set the text color to violet */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table th,
+  .table td {
+    padding: 8px 16px;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Add a simple animation to the table rows */
+  .table-row {
+    transition: background-color 0.3s ease;
+  }
+  
+  .table-row:hover {
+    background-color: #f7f7f7;
+    color:rgb(34, 70, 216); /* Set the text color to violet */
+  }
+  
+  .icon{
+    font-size: 25px;
+  }
+  .span{
+    color: rgb(136, 188, 64);
+    font-weight: bold;
+  }
+  
+  #meat-button{
+    background-color: rgb(75, 61, 172) ;
+    max-width: 103px;
+    margin:auto;
+    transition: background-color 0.3s;
+  }
+  
+  #meat-button:hover{
+    font-weight: bold;
+    background-color:  #0056b3;;
+  }
+  /* Define the hover effect */
+  .trigger-button:hover {
+    font-weight: bold;
+    background-color: darkviolet; /* Change the background color on hover */
+  }
+  
+  #trigger{
+    background-color: transparent;
+  }
+  
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+  
+    .hero1 h1 {
+      font-size: 2rem;
+    }
+  
+    .hero1 p {
+      font-size: 1rem;
+    }
+    .hero1 button{
+      max-width: 270px;
+      font-size: 14px;
+    }
+    .featured-products1 {
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+  
+    .product-card1 {
+      width: 70%;
+    }
+  
+    .hero1 h1{
+      font-size: 22px;
+      padding: 10px;
+    }
+  
+    .hero1 p{
+      font-size: 14px;
+      padding: 10px;
+    }
+    
+    .featured-products1 h3{
+      font-size: 21px;
+    }
+    
+    .featured-products1 p{
+      font-size: 12px;
+    }
+  }
+  

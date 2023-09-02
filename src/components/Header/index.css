@@ -59,6 +59,7 @@ body, h1, h2, h3, p, ul {
   .logout-button {
     font: inherit;
     cursor: pointer;
+    background-color: #0056b3;
     margin: 10px;
     transition: background-color 0.3s;
   }

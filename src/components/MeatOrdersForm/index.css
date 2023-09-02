@@ -12,7 +12,14 @@ body, h1, h2, h3, p, ul{
   min-height: 100vh;
   background-color:#17202A;
 }
-
+h4{
+  color: #80ca5e;
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+p{
+  color: #80ca5e;
+}
 .hero1 {
   text-align: center;
   color: white;
@@ -77,7 +84,7 @@ body, h1, h2, h3, p, ul{
   justify-content: center;
   gap: 2rem;
   padding: 3rem 0;
-  background-color:white;
+  background-color:transparent;
 }
 
 .product-card1 {
@@ -102,7 +109,7 @@ body, h1, h2, h3, p, ul{
   margin-bottom: 0.5rem;
 }
 
-.product-card:hover{
+.product-card1:hover{
   transform: scale(1.1);
 }
 
@@ -136,6 +143,10 @@ body, h1, h2, h3, p, ul{
   align-items: flex-start;
   margin-bottom: 17px;
 }
+input{
+  margin-bottom: 6px;
+}
+
 .meat-cart-input{
   height: 7px;
   max-width: 84px;
@@ -145,8 +156,14 @@ body, h1, h2, h3, p, ul{
   width: 90vw;
   background-color: rgba(0, 0, 0, 0.5);
 }
+.para{
+  margin-bottom: 10px;
+  font-size: 17px;
+}
 .trigger-button {
-  background-color: violet;
+  background-color: rgb(92, 120, 52);
+  margin: auto;
+  width: 200px;
   color: white; /* Set the text color to white for better visibility */
   padding: 10px 20px; /* Adjust the padding as needed */
   border: none; /* Remove the button border */
@@ -193,10 +210,35 @@ body, h1, h2, h3, p, ul{
   color:rgb(34, 70, 216); /* Set the text color to violet */
 }
 
+.icon{
+  font-size: 25px;
+}
+.span{
+  color: rgb(136, 188, 64);
+  font-weight: bold;
+}
+
+#meat-button{
+  background-color: rgb(75, 61, 172) ;
+  max-width: 103px;
+  margin:auto;
+  transition: background-color 0.3s;
+}
+
+#meat-button:hover{
+  font-weight: bold;
+  background-color:  #0056b3;;
+}
 /* Define the hover effect */
 .trigger-button:hover {
+  font-weight: bold;
   background-color: darkviolet; /* Change the background color on hover */
 }
+
+#trigger{
+  background-color: transparent;
+}
+
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
