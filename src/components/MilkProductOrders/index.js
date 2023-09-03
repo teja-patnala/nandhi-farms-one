@@ -1,35 +1,43 @@
-import React, { useState,useEffect } from 'react';
-import {setDoc,doc} from "firebase/firestore";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import LoaderPopup from "../LoaderPopup"
+import React, { useState, useEffect } from 'react';
+import { setDoc, doc } from "firebase/firestore";
+import { collection, getDocs,getDoc } from "firebase/firestore";
+import LoaderPopup from "../LoaderPopup";
 import { db } from "../../firestore";
 //import { useAuth } from "../../context/AuthContext";
 import "./index.css";
 
-
-function MeatOrders() {
+function MilkProductOrders() {
   const [curdQuantity, setCurdQuantity] = useState();
   const [gheeQuantity, setGheeQuantity] = useState();
-  const [honeyQuantity,setHoneyQuantity] = useState()
-  const [curdCost,setCurdCost] = useState()
-  const [gheeCost,setGheeCost] = useState()
-  const [honeyCost,setHoneyCost] = useState()
-  const [status,setStatus] = useState(false)
-  const [todaysOrders,setTodaysOrders] = useState([])
+  const [honeyQuantity, setHoneyQuantity] = useState();
+  const [curdCost, setCurdCost] = useState();
+  const [gheeCost, setGheeCost] = useState();
+  const [honeyCost, setHoneyCost] = useState();
+  const [status, setStatus] = useState(false);
+  const [todaysOrders, setTodaysOrders] = useState([]);
+  const [milkProductsCosts,setMilkProductsCosts] = useState();
+ 
 
   async function handleAddQuantity(e) {
     e.preventDefault();
     try {
-      setStatus(true)
-      await setDoc(doc(db,"productsQuantity","quantity"),{curdCost,curdQuantity,honeyCost,honeyQuantity,gheeCost,gheeQuantity})
-      setStatus(false)
-      setCurdQuantity("")
-      setGheeQuantity("")
-      setHoneyQuantity("")
-      setGheeCost("")
-      setCurdCost("")
-      setHoneyCost("")
-      alert("updated successfully")
+      setStatus(true);
+      await setDoc(doc(db, "productsQuantity", "quantity"), {
+        curdCost,
+        curdQuantity,
+        honeyCost,
+        honeyQuantity,
+        gheeCost,
+        gheeQuantity,
+      });
+      setStatus(false);
+      setCurdQuantity("");
+      setGheeQuantity("");
+      setHoneyQuantity("");
+      setGheeCost("");
+      setCurdCost("");
+      setHoneyCost("");
+      alert("updated successfully");
     } catch (e) {
       alert(e);
     }
@@ -49,69 +57,184 @@ function MeatOrders() {
   useEffect(() => {
     async function getTheOrders() {
       const tomorrowDate = getTomorrowDate();
-  
-      // Query documents where "orders" array contains objects with "date" matching tomorrow's date
-      const q = query(collection(db, "users"),
-        where("orders", "array-contains", { date: tomorrowDate })
-      );
-  
+
       try {
-        const querySnapshot = await getDocs(q);
+        const querySnapshot = await getDocs(collection(db, "users"));
         const ordersData = [];
-  
         querySnapshot.forEach((doc) => {
           const userData = doc.data();
-          ordersData.push(userData);
+          if (userData.orders) {
+            const matchingOrders = userData.orders.filter(
+              (order) => order.date === tomorrowDate + "mp"
+            );
+            if (matchingOrders.length > 0) {
+              ordersData.push({ ...userData, orders: [...matchingOrders] });
+            }
+          }
         });
-        setTodaysOrders(ordersData)
-        console.log(ordersData);
+
+        setTodaysOrders(ordersData);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
     }
-  
     getTheOrders();
-  },[]);
-  
 
-  console.log(todaysOrders)
+    async function retrieveDataFromFirestore() {
+      try {
+        const docRef = doc(db, "productsQuantity", "quantity");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setMilkProductsCosts(data)
+      
+        } else {
+          console.log("No such document exists!");
+        } 
+        } 
+        catch (error) {
+          console.error("Error retrieving data from Firestore:", error);
+          throw error; // Handle the error or rethrow it if needed
+        }
+    }
+
+    retrieveDataFromFirestore();
+  },[]);
+
   return (
     <div className="meat-container">
-      <LoaderPopup loadStatus={status}/>
-      <div className='anounce-container'>
-        <h1>Anounce Quantity For Tommorow</h1>
-        <form className='form' onSubmit={handleAddQuantity}>
-            <div className='meat-input-container'>
-                <label  htmlFor='curd'>Curd : </label>
-                <input value={curdQuantity} type="number" placeholder="Enter quantity" required id = "curd" onChange={(e=>setCurdQuantity(parseInt(e.target.value)))}/>
-            </div>
-            <div className='meat-input-container'>
-                <label htmlFor='ghee'>Ghee : </label>
-                <input value={gheeQuantity} type="number" placeholder="Enter quantity" required id = "ghee" onChange={(e=>setGheeQuantity(parseInt(e.target.value)))}/>
-            </div>
-            <div className='meat-input-container'>
-                <label htmlFor='honey'>Honey : </label>
-                <input value={honeyQuantity} type="number" placeholder="Enter quantity" required id = "eggs" onChange={(e=>setHoneyQuantity(parseInt(e.target.value)))}/>
-            </div>
-            <div className='meat-input-container'>
-                <label htmlFor='curdCostt'>Curd cost : </label>
-                <input value={curdCost} type="number" placeholder="Enter quantity" required id = "curdCost" onChange={(e=>setCurdCost(parseInt(e.target.value)))}/>
-            </div>
-            <div className='meat-input-container'>
-                <label htmlFor='gheecost'>Ghee Cost : </label>
-                <input value={gheeCost} type="number" placeholder="Enter quantity" required id = "gheecost" onChange={(e=>setGheeCost(parseInt(e.target.value)))}/>
-            </div>
-            <div className='meat-input-container'>
-                <label htmlFor='honeycost'>Honey Cost : </label>
-                <input value={honeyCost} type="number" placeholder="Enter quantity" required id = "honeycost" onChange={(e=>setHoneyCost(e.target.value))}/>
-            </div>
-            <div>
-                <button className='submit-button' type="submit">Submit</button>
-            </div>
+      <LoaderPopup loadStatus={status} />
+      <div className="anounce-container">
+        <h1>Anounce Quantity For Tomorrow</h1>
+        <form className="form" onSubmit={handleAddQuantity}>
+          <div className='meat-input-container'>
+            <label htmlFor='curd'>Curd : </label>
+            <input
+              value={curdQuantity}
+              type="number"
+              placeholder="Enter quantity"
+              required
+              id="curd"
+              onChange={(e) => setCurdQuantity(parseInt(e.target.value))}
+            />
+          </div>
+          <div className='meat-input-container'>
+            <label htmlFor='ghee'>Ghee : </label>
+            <input
+              value={gheeQuantity}
+              type="number"
+              placeholder="Enter quantity"
+              required
+              id="ghee"
+              onChange={(e) => setGheeQuantity(parseInt(e.target.value))}
+            />
+          </div>
+          <div className='meat-input-container'>
+            <label htmlFor='honey'>Honey : </label>
+            <input
+              value={honeyQuantity}
+              type="number"
+              placeholder="Enter quantity"
+              required
+              id="eggs"
+              onChange={(e) => setHoneyQuantity(parseInt(e.target.value))}
+            />
+          </div>
+          <div className='meat-input-container'>
+            <label htmlFor='curdCostt'>Curd cost : </label>
+            <input
+              value={curdCost}
+              type="number"
+              placeholder="Enter quantity"
+              required
+              id="curdCost"
+              onChange={(e) => setCurdCost(parseInt(e.target.value))}
+            />
+          </div>
+          <div className='meat-input-container'>
+            <label htmlFor='gheecost'>Ghee Cost : </label>
+            <input
+              value={gheeCost}
+              type="number"
+              placeholder="Enter quantity"
+              required
+              id="gheecost"
+              onChange={(e) => setGheeCost(parseInt(e.target.value))}
+            />
+          </div>
+          <div className='meat-input-container'>
+            <label htmlFor='honeycost'>Honey Cost : </label>
+            <input
+              value={honeyCost}
+              type="number"
+              placeholder="Enter quantity"
+              required
+              id="honeycost"
+              onChange={(e) => setHoneyCost(parseInt(e.target.value))}
+            />
+          </div>
+          <div>
+            <button className='submit-button' type="submit">
+              Submit
+            </button>
+          </div>
         </form>
+      </div>
+      <div className='table-container4'>
+        <table className="orders-table4">
+          <thead>
+            <tr>
+              <th className="table-row4">Name</th>
+              <th className="table-row4">Email</th>
+              <th className="table-row4">Phone No</th>
+              <th className="table-row4">Address</th>
+              <th className="table-row4">Items</th>
+              <th className="table-row4">Total Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {todaysOrders.map((order, index) => (
+              <tr key={index} className="table-row4">
+                <td id="td">{order.firstName.toLowerCase()} {order.lastName.toLowerCase()}</td>
+                <td id="td">{order.email}</td>
+                <td id="td">{order.phoneNumber}</td>
+                <td id="td">{order.address}</td>
+                <td>
+                  <table className='table-container'>
+                    <thead>
+                      <tr>
+                        <th className="table-row4" >Item <br/> Name</th>
+                        <th className="table-row4" >Quantity</th>
+                        <th className="table-row4" >Cost</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    {order.orders.map((eachItem, orderIndex) => (
+                      Object.entries(eachItem.items).map(([item, quantity], itemIndex) => {
+                        const itemCost = milkProductsCosts[`${item}Cost`]*quantity
+                        const string = milkProductsCosts[`${item}Cost`]+"*"+quantity
+                        return(
+                        <tr key={itemIndex}>
+                          <td id="td">{item}</td>
+                          <td id="td">{quantity}</td>
+                          <td id="td">{`${string} = ${itemCost}`}</td>
+                        </tr>
+                        )})
+                      ))}
+                    </tbody>
+                  </table>
+                </td>
+                <td style={{color:"olive",fontWeight:"bold"}}>
+                  {order.orders.reduce((acc, cur) => acc + cur.payment, 0)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 }
 
-export default MeatOrders;
+export default MilkProductOrders;

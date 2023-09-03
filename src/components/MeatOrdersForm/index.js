@@ -14,7 +14,7 @@ function MeatOrdersForm() {
   const [chicken, setChicken] = useState(0);
   const [mutton, setMutton] = useState(0);
   const [eggs, setEggs] = useState(0);
-  const {currentUserDataOne,setMyValue} = useAuth()
+  const {currentUserDataOne,setMyValue,setProductsCost} = useAuth()
 
 
 
@@ -65,7 +65,7 @@ function MeatOrdersForm() {
         // Access the data from the document
         const data = docSnap.data();
         const newQuantity = {
-          ...meatData,
+          ...data,
           chickenQuantity: data.chickenQuantity-c,
           muttonQuantity: data.muttonQuantity-m,
           eggsQuantity : data.eggsQuantity-e
@@ -96,7 +96,7 @@ function MeatOrdersForm() {
     const docRef = doc(db, 'users', userId);
     const payload = {
       ...userData,
-      orders:[...userData.orders,{date:getTomorrowDate(),delivaryStatus:false,items :{cart},payment:amount}],
+      orders:[...userData.orders,{date:getTomorrowDate()+"m",delivaryStatus:false,items :{...cart},payment:amount}],
       transactions: { [new Date().toISOString()+" Meat"]: id, ...userData.transactions },
     };
     setMyValue(payload)
@@ -162,7 +162,7 @@ function MeatOrdersForm() {
           // Use data() method to access the document data
           const meatData = docSnap.data();
           setMeatData(meatData)
-          console.log(meatData)
+          setProductsCost(meatData)
         } else {
           console.log("Document does not exist");
         }
@@ -172,7 +172,7 @@ function MeatOrdersForm() {
       }
     }
     getTheMeatQuantity();
-  },[cart,meatData]);
+  },[cart,meatData,setProductsCost]);
 
   function getTheCostOfItem(){
     let cost = 0
@@ -191,8 +191,7 @@ function MeatOrdersForm() {
         }
       }
     }
-    return cost 
-
+    return cost
   }
 
   return (
@@ -276,7 +275,7 @@ function MeatOrdersForm() {
           <h3>Natu Kodi Meat</h3>
           <h4>cost : {meatData.chickenCost}/kg</h4>
           <p>Available Quantity: {meatData.chickenQuantity} Kgs</p>
-          <p>{meatData.chickenQuantity===0&&"OUT OF STOCK"}</p>
+          <p style={{paddingTop:"4px"}}>{meatData.chickenQuantity===0&&"OUT OF STOCK"}</p>
         </div>
         <div className="product-card1">
           <div className='meat-cart-container'>
@@ -288,7 +287,7 @@ function MeatOrdersForm() {
                 <div>
                   <label htmlFor='mutton'>Enter Quantity</label>
                   <input value={mutton} onChange={(e) => setMutton(parseInt(e.target.value))} placeholder='Enter in Liters' className='meat-cart-input' id="mutton" type="number" />
-                  <button id='meat-button' type="submit">Add to Cart</button>
+                  <button disabled={meatData.muttonQuantity===0} id='meat-button' type="submit">Add to Cart</button>
                 </div>
               </form>
             </div>
@@ -296,6 +295,7 @@ function MeatOrdersForm() {
           <h3>Goat Meat</h3>
           <h4>cost : {meatData.muttonCost}/kg</h4>
           <p>Available Quantity: {meatData.muttonQuantity} kgs</p>
+          <p style={{paddingTop:"4px"}}>{meatData.muttonQuantity===0&&"OUT OF STOCK"}</p>
         </div>
         <div className="product-card1">
           <div className='meat-cart-container'>
@@ -307,7 +307,7 @@ function MeatOrdersForm() {
                 <div>
                   <label htmlFor='eggs'>Enter Quantity</label>
                   <input value={eggs} onChange={(e) => setEggs(parseInt(e.target.value))} placeholder='Enter in Liters' className='meat-cart-input' id="eggs" type="number" /><br />
-                  <button id='meat-button' type="submit">Add to Cart</button>
+                  <button disabled={meatData.eggsQuantity===0}  id='meat-button' type="submit">Add to Cart</button>
                 </div>
               </form>
             </div>
@@ -315,6 +315,7 @@ function MeatOrdersForm() {
           <h3>Natu Kodi Eggs</h3>
           <h4>cost : {meatData.eggsCost}/Egg</h4>
           <p>Available Quantity: {meatData.eggsQuantity} Eggs</p>
+          <p style={{paddingTop:"4px"}}>{meatData.eggsQuantity===0&&"OUT OF STOCK"}</p>
         </div>
       </section>
       <footer className="footer1">

@@ -8,12 +8,16 @@ h1 {
   color: #f4a950;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+.main-heading{
+  padding-top: 10px;
+}
 
 .admin-page {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   min-height: 100vh;
+  padding-left: 20px;
   background-color: #161b21;
 }
 
@@ -67,18 +71,34 @@ button {
   ul {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+     
+  }
+  .main-heading{
+    font-size: 19px;
+    padding-bottom: 15px;
+
   }
   .sidebar {
     width: 100vw;
     height: auto;
-    padding: 0px;
+    padding-bottom: 10px;
+
   }
   li {
     margin: 5px;
   }
+  .admin-page{
+    padding: 0px;
+  }
   button {
-    margin: 5px;
-
+    margin: 1px;
+    font-size: 12px;
+    padding: 5px;
+  }
+  .sub-heading{
+    font-size: 16px;
+    padding: 10px;
   }
   
 }

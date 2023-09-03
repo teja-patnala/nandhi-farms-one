@@ -1,0 +1,54 @@
+.table-container4 {
+    padding: 30px;
+    height:100%; /* Set the desired max height for scrolling */
+    overflow: auto; /* Enable vertical scrolling if content overflows */
+  }
+  
+  .orders-table4 {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+  }
+  
+  .table-row4 {
+    background-color: rgba(0, 0, 0, 0.3); /* Background color with transparency */
+    color: #b8b5d0; /* Font color is white */
+    transition: background-color 0.3s ease; /* Transition animation for background color change */
+  }
+  
+  .table-row4:hover {
+    font-weight: bold;
+    background-color: rgba(120, 71, 200, 0.6); /* Darker background color on hover */
+  }
+  
+
+  .orders-table4 th{
+    border: 1px solid white;
+  }
+  .orders-table4 td {
+    color:black;
+    border: 1px solid white;
+    padding: 8px;
+    text-align: left;
+  }
+  .orders-table4 td:hover {
+    border: 3px solid black;
+  
+  }
+  #tbody{
+    background-color: black;
+  }
+  #tbody:hover{
+    background-color: black;
+    color: black;
+  }
+  #td{
+    color: olive;
+  }
+  #tdone{
+    color: olive;
+  }
+  #idt{
+    color: olive;
+  }
+ 

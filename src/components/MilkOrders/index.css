@@ -2,30 +2,55 @@
     height:100%; /* Set the desired max height for scrolling */
     overflow: auto; /* Enable vertical scrolling if content overflows */
   }
-  
-  .orders-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 16px;
-  }
-  
-  .table-row {
-    background-color: rgba(0, 0, 0, 0.3); /* Background color with transparency */
-    color: #f4a950; /* Font color is white */
-    transition: background-color 0.3s ease; /* Transition animation for background color change */
-  }
-  
-  .table-row:hover {
-    background-color: rgba(120, 71, 200, 0.6); /* Darker background color on hover */
-  }
-  
-  .orders-table th{
-    border: 1px solid white;
-  }
-  .orders-table td {
-    color:white;
-    border: 1px solid white;
-    padding: 8px;
-    text-align: left;
-  }
-  
+
+.table-container {
+  max-height: 500px; /* Set a maximum height for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
+
+.orders-table3 {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.table-row3 {
+  background-color: rgba(0, 0, 0, 0.05); /* Default background color with slight transparency */
+  color: #333; /* Font color is a darker gray */
+  transition: background-color 0.3s ease; /* Smooth transition for background color change */
+}
+
+.table-row3:hover {
+  background-color: blue; /* Change background color to blue only on hover */
+  color: white; /* Font color becomes white on hover */
+}
+
+.orders-table3 th {
+  background-color: #211e1a; /* Header background color */
+  color: white; /* Font color is white */
+  border: 1px solid #ccc; /* Border for header cells */
+  padding: 10px; /* Padding for header cells */
+}
+
+.orders-table3 td {
+  border: 1px solid #ccc; /* Border for data cells */
+  padding: 10px; /* Padding for data cells */
+  text-align: left;
+}
+
+.orders-table3 tr {
+  border: 1px solid #ccc; /* Border for data cells */
+  padding: 10px; /* Padding for data cells */
+  color: white;
+  text-align: left;
+}
+tfoot td {
+  background-color: #1a1613; /* Footer background color */
+  color: white; /* Font color is white */
+  font-weight: bold; /* Make footer text bold */
+  text-align: right; /* Align footer text to the right */
+}
+
+tfoot td[colSpan="3"] {
+  text-align: left; /* Adjust the alignment for "Total Liters" cell */
+}

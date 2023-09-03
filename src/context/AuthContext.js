@@ -19,6 +19,7 @@ function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
     const [currentUserDataOne,setMyValue] = useState({})
+    const [productsCosts,setProductsCost] = useState({})
   
     function signup(email, password) {
       return createUserWithEmailAndPassword(auth, email, password);
@@ -74,7 +75,9 @@ function AuthProvider({ children }) {
       updateEmail,
       updatePassword,
       isAdminOfNandhi,
-      setMyValue
+      setMyValue,
+      productsCosts,
+      setProductsCost
     };
   
     return (

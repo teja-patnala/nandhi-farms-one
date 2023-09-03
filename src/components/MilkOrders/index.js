@@ -27,21 +27,21 @@ export default function MilkOrders() {
 
   return (
     <div className="table-container">
-      <table className="orders-table">
+      <table className="orders-table3">
         <thead>
           <tr>
-            <th className="table-row">Name</th>
-            <th className="table-row">Email</th>
-            <th className="table-row" >Phone No</th>
-            <th className="table-row">No. Liters</th>
-            <th className="table-row">No. Days</th>
-            <th className="table-row">Subscriber</th>
-            <th className="table-row">Otp</th>
+            <th className="table-row3">Name</th>
+            <th className="table-row3">Email</th>
+            <th className="table-row3" >Phone No</th>
+            <th className="table-row3">No. Liters</th>
+            <th className="table-row3">No. Days</th>
+            <th className="table-row3">Subscriber</th>
+            <th className="table-row3">Otp</th>
           </tr>
         </thead>
         <tbody>
           {orders.map((order, index) => (
-            <tr key={index} className="table-row">
+            <tr key={index} className="table-row3">
               <td>{order.firstName.toLowerCase()} {order.lastName.toLowerCase()}</td>
               <td>{order.email}</td>
               <td>{order.phoneNumber}</td>

@@ -10,11 +10,11 @@ import './index.css';
 
 function DairyProductsForm() {
   const [cart, setCart] = useState({});
-  const [productsData,setMeatData] = useState({})
+  const [productsData,setProductsData] = useState({})
   const [curd, setCurd] = useState(0);
   const [ghee, setGhee] = useState(0);
   const [honey, setHoney] = useState(0);
-  const {currentUserDataOne,setMyValue} = useAuth()
+  const {currentUserDataOne,setMyValue,setProductsCost} = useAuth()
 
 
   function getTomorrowDate() {
@@ -50,10 +50,10 @@ function DairyProductsForm() {
   let userId;
 
 
-  async function updateFirestoreMeatQuantity(data){
+  async function updateFirestoreProductsQuantity(data){
     const {curd,honey,ghee} = data;
 
-    let c = curd !== undefined?curd:0
+    let cu = curd !== undefined?curd:0
     let h = honey !== undefined?honey:0
     let g = ghee !== undefined?ghee:0
     try {
@@ -64,9 +64,10 @@ function DairyProductsForm() {
         // Access the data from the document
         const data = docSnap.data();
         const newQuantity = {
-          curdQuantity: data.curdQuantity-c,
-          gheeQuantity: data.gheeQuantity-h,
-          honeyQuantity : data.honeyQuantity-g
+          ...data,
+          curdQuantity: data.curdQuantity-cu,
+          gheeQuantity: data.gheeQuantity-g,
+          honeyQuantity : data.honeyQuantity-h
         }
 
         try{
@@ -84,7 +85,7 @@ function DairyProductsForm() {
     }
   }
 
-  async function updateFirestoreForMeat(id,amount){
+  async function  updateFirestoreForProducts(id,amount){
     const q = query(collection(db, 'users'), where('email', '==', currentUserDataOne.email));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -94,7 +95,7 @@ function DairyProductsForm() {
     const docRef = doc(db, 'users', userId);
     const payload = {
       ...userData,
-      orders:[...userData.orders,{date:getTomorrowDate(),delivaryStatus:false,items :{cart},payment:amount}],
+      orders:[{date:getTomorrowDate()+"mp",delivaryStatus:false,items :{...cart},payment:amount},...userData.orders,],
       transactions: { [new Date().toISOString()+" Products"]: id, ...userData.transactions },
     };
     setMyValue(payload)
@@ -116,8 +117,8 @@ function DairyProductsForm() {
       name: 'NANDHI FARMS',
       description: 'for testing purpose',
       handler: function (response) {
-        updateFirestoreForMeat(response.razorpay_payment_id,amount);
-        updateFirestoreMeatQuantity(cart)
+        updateFirestoreForProducts(response.razorpay_payment_id,amount);
+        updateFirestoreProductsQuantity(cart)
       },
       prefill: {
         name: 'patnala venkata teja',
@@ -159,8 +160,8 @@ function DairyProductsForm() {
         if (docSnap.exists()) {
           // Use data() method to access the document data
           const productsData = docSnap.data();
-          setMeatData(productsData)
-          console.log(productsData)
+          setProductsData(productsData)
+          setProductsCost(productsData)
         } else {
           console.log("Document does not exist");
         }
@@ -170,7 +171,7 @@ function DairyProductsForm() {
       }
     }
     getTheMeatQuantity();
-  },[cart,productsData]);
+  },[cart,productsData,setProductsCost]);
 
   function getTheCostOfItem(){
     let cost = 0
@@ -189,8 +190,7 @@ function DairyProductsForm() {
         }
       }
     }
-    return cost 
-
+    return cost
   }
 
   return (
@@ -274,7 +274,7 @@ function DairyProductsForm() {
           <h3>Curd</h3>
           <h4>cost : {productsData.curdCost}/liter</h4>
           <p>Available Quantity: {productsData.curdQuantity} liters</p>
-          <p>{productsData.curdQuantity===0&&"OUT OF STOCK"}</p>
+          <p style={{paddingTop:"4px"}}>{productsData.curdQuantity===0&&"OUT OF STOCK"}</p>
         </div>
         <div className="product-card1">
           <div className='meat-cart-container'>
@@ -286,7 +286,7 @@ function DairyProductsForm() {
                 <div>
                   <label htmlFor='ghee'>Enter Quantity</label>
                   <input value={ghee} onChange={(e) => setGhee(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="ghee" type="number" />
-                  <button id='meat-button' type="submit">Add to Cart</button>
+                  <button  disabled={productsData.gheeQuantity===0} id='meat-button' type="submit">Add to Cart</button>
                 </div>
               </form>
             </div>
@@ -294,6 +294,7 @@ function DairyProductsForm() {
           <h3>Ghee</h3>
           <h4>cost : {productsData.gheeCost}/liter</h4>
           <p>Available Quantity: {productsData.gheeQuantity} liters</p>
+          <p style={{paddingTop:"4px"}}>{productsData.gheeQuantity===0&&"OUT OF STOCK"}</p>
         </div>
         <div className="product-card1">
           <div className='meat-cart-container'>
@@ -305,7 +306,7 @@ function DairyProductsForm() {
                 <div>
                   <label htmlFor='honey'>Enter Quantity</label>
                   <input value={honey} onChange={(e) => setHoney(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="honey" type="number" /><br />
-                  <button id='meat-button' type="submit">Add to Cart</button>
+                  <button  disabled={productsData.honeyQuantity===0} id='meat-button' type="submit">Add to Cart</button>
                 </div>
               </form>
             </div>
@@ -313,6 +314,7 @@ function DairyProductsForm() {
           <h3>Honey</h3>
           <h4>cost : {productsData.honeyCost}/liter</h4>
           <p>Available Quantity: {productsData.honeyQuantity} liters</p>
+          <p style={{paddingTop:"4px"}}>{productsData.honeyQuantity===0&&"OUT OF STOCK"}</p>
         </div>
       </section>
       <footer className="footer1">
