@@ -14,7 +14,7 @@ import ContactForm from "./components/ContactUs";
 import AdminPage from "./components/AdminPage";
 import AdminProtectedRoute from "./components/AdminProtectedRoute"
 import MeatOrdersForm from "./components/MeatOrdersForm";
-import CartForm from "./components/CartForm"
+import OrdersForm from "./components/OrdersForm"
 import DairyProductsForm from "./components/DairyProductsForm"
 
 const App = () => (
@@ -28,7 +28,7 @@ const App = () => (
         <Route path="/change-password" element={<ProtectedRoute><PasswordChangeForm /></ProtectedRoute>} />
         <Route path="/about" element={<ProtectedRoute><AboutUs /></ProtectedRoute>} />
         <Route path="/contact" element={<ProtectedRoute><ContactForm /></ProtectedRoute>} />
-        <Route path="/orders" element={<ProtectedRoute><CartForm /></ProtectedRoute>} />
+        <Route path="/orders" element={<ProtectedRoute><OrdersForm /></ProtectedRoute>} />
         <Route path="/subscribe" element={<ProtectedRoute><SubscriptionForm /></ProtectedRoute>} />
         <Route path="/meat" element={<ProtectedRoute><MeatOrdersForm /></ProtectedRoute>} />
         <Route path="/products" element={<ProtectedRoute><DairyProductsForm /></ProtectedRoute>} />
