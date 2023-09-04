@@ -34,7 +34,7 @@ export default function MilkOrders() {
             <th className="table-row3">Email</th>
             <th className="table-row3" >Phone No</th>
             <th className="table-row3">No. Liters</th>
-            <th className="table-row3">No. Days</th>
+            <th className="table-row3">No. Days Left</th>
             <th className="table-row3">Subscriber</th>
             <th className="table-row3">Otp</th>
           </tr>
@@ -47,7 +47,7 @@ export default function MilkOrders() {
               <td>{order.phoneNumber}</td>
               <td>{order.litersOfMilk}</td>
               <td>{order.noDaysSuppliesMilk}</td>
-              <td>{order.subscription}</td>
+              <td>{order.subscription?"True":"False"}</td>
               <td>{order.otpForMilkCollection}</td>
             </tr>
           ))}

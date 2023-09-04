@@ -109,39 +109,40 @@ const AdminPage = () => {
       <div className="sidebar">
         <h1 className='main-heading'>Nandhi Farms Admin</h1>
         <ul>
-          <li><button onClick={(e=>setTitle("Meat Orders"))} className='button' type="button">Meat Orders</button></li>
-          <li><button onClick={(e=>setTitle("Milk Product Orders"))}  className='button' type="button">Milk Products Orders</button></li>
-          <li><button onClick={(e=>setTitle("Milk Orders"))}  className='button'>Milk Orders</button></li>
+          <li><button onClick={(e=>setTitle("Meat Orders"))} className='button-admin' type="button">Meat Orders</button></li>
+          <li><button onClick={(e=>setTitle("Milk Product Orders"))}  className='button-admin' type="button">Milk Products Orders</button></li>
+          <li><button onClick={(e=>setTitle("Milk Orders"))}  className='button-admin'>Milk Orders</button></li>
           <li>
             <div className="popup-container">
               <Popup
               modal
               trigger={
-              <button type="button" className="button">
+              <button type="button" className='button-admin'>
                 Notify
               </button>
               }>
                 {close => (
-                <div className="message-box">
-                  <h2>Send Message to Clients</h2>
+                <div className="message-box-msg">
+                  <h2 style={{padding:"13px"}}>Send Message to Clients</h2>
                   <textarea
+                  style={{width:"250px"}}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Type your message..."
                   />
-                  <button className="send-button" onClick={handleSendMessage}>
+                  <button className="send-button-msg" onClick={handleSendMessage}>
                     Send
                   </button>
-                  <button type="button" className="close-button" onClick={close}>
-                    Close
+                  <button type="button" className="close-button-msg" onClick={close}>
+                    Close Popup
                   </button>
                 </div>
               )}
               </Popup>
               </div>
             </li>
-          <li><button className='button' type="button" onClick={handleLogout}>Logout</button></li>
-          <li><button className='button' type="button" onClick={sendOtp}>Send OTP</button></li>
+          <li><button className='button-admin' type="button" onClick={handleLogout}>Logout</button></li>
+          <li><button className='button-admin' type="button" onClick={sendOtp}>Send OTP</button></li>
         </ul>
       </div>
       <div className='main-container'>

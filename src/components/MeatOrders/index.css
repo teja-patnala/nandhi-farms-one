@@ -6,11 +6,30 @@
     font-size: 20px;
     text-align: center;
 }
+
+.today{
+    font-size: 24px;
+    text-align: center;
+}
 .form{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
+}
+.delivary-button{
+    max-width: 200px;
+    margin-top: 10px;
+    background-color: #6f5331;
+}
+.delivary-button:hover{
+    background-color: #f4a950;
+}
+.table-container4{
+    overflow:auto;
+}
+#or1{
+    height: 100px;
 }
 .meat-input-container{
     display: flex;
@@ -27,8 +46,8 @@
 .meat-input-container label{
     color: #f4a950;
 }
-.submit-button{
-    width:80px ;
+.submit-button-one{
+    width:100px ;
 }
 label{
     width: 150px;
@@ -38,8 +57,8 @@ label{
     .form{
         flex-direction: column;
     }
-    .submit-button{
-        width:180px ;
+    .today{
+        font-size: 18px;
     }
 
 }

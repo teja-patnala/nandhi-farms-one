@@ -10,6 +10,7 @@ h1 {
 }
 .main-heading{
   padding-top: 10px;
+  font-size: 22px;
 }
 
 .admin-page {
@@ -27,7 +28,7 @@ ul {
 li {
   margin: 10px;
 }
-button {
+.button-admin {
   margin: 10px;
 }
 
@@ -50,12 +51,32 @@ button {
   font-size: 24px;
   padding: 10px;
 }
-
+.message-box-msg{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  max-height: 350px;
+}
+.send-button-msg{
+  max-width: 200px;
+  background-color: #860b74;
+  margin-top: 10px;
+}
+.send-button-msg:hover{
+  background-color: #c15eb4;
+}
+.close-button-msg{
+  max-width: 200px;
+  background-color: #483824;
+}
+.close-button-msg:hover{
+  background-color: #755e42;
+}
 .sidebar {
   width: 300px;
   height: 100vh;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-right: 10px;
   background-color: rgb(65, 27, 53);
 }
 
@@ -83,6 +104,8 @@ button {
     width: 100vw;
     height: auto;
     padding-bottom: 10px;
+    padding-right: -10px;
+    padding-left: 0px;
 
   }
   li {
@@ -91,7 +114,7 @@ button {
   .admin-page{
     padding: 0px;
   }
-  button {
+  .button-admin {
     margin: 1px;
     font-size: 12px;
     padding: 5px;

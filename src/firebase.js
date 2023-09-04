@@ -2,13 +2,12 @@ import {initializeApp} from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
  
 const firebaseConfig = {
-  apiKey: "AIzaSyAZQziNG9ELcogE6jgpW0Xt3g--QhMZb0k",
-  authDomain: "nandhi-farms-3951e.firebaseapp.com",
-  projectId: "nandhi-farms-3951e",
-  storageBucket: "nandhi-farms-3951e.appspot.com",
-  messagingSenderId: "318045950157",
-  appId: "1:318045950157:web:168742b3b4c28822b2d984",
-  measurementId: "G-CLSH6W3EST"
+  apiKey: "AIzaSyDozRAP5idyjpkI1CKDaxRlMHqSQxGSUHY",
+  authDomain: "nandhi-farms-2ef33.firebaseapp.com",
+  projectId: "nandhi-farms-2ef33",
+  storageBucket: "nandhi-farms-2ef33.appspot.com",
+  messagingSenderId: "541059606653",
+  appId: "1:541059606653:web:ba1f247b512fcdbc31e914"
 };
 
 

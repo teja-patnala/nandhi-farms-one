@@ -1,6 +1,6 @@
 .table-container4 {
     padding: 30px;
-    height:100%; /* Set the desired max height for scrolling */
+    height: 40vh; /* Set the desired max height for scrolling */
     overflow: auto; /* Enable vertical scrolling if content overflows */
   }
   

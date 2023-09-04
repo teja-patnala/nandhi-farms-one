@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import {setDoc,doc,getDocs,getDoc,collection,} from "firebase/firestore";
+import {setDoc,doc,getDocs,getDoc,collection} from "firebase/firestore";
 import LoaderPopup from "../LoaderPopup"
 import { db } from "../../firestore";
 import "./index.css";
@@ -33,6 +33,7 @@ function MeatOrders() {
       alert(e);
     }
   }
+  //console.log(todaysMeatOrders)
 
   function getTomorrowDate() {
     const today = new Date();
@@ -51,8 +52,8 @@ function MeatOrders() {
       try {
         const querySnapshot = await getDocs(collection(db, "users"));
         const ordersData = [];
-        querySnapshot.forEach((doc) => {
-          const userData = doc.data();
+        querySnapshot.forEach((docItem) => {
+          const userData = docItem.data();
           if (userData.orders) {
             const matchingOrders = userData.orders.filter(
               (order) => order.date === tomorrowDate + "m"
@@ -92,8 +93,45 @@ function MeatOrders() {
     retrieveDataFromFirestore();
 
 
-  }, []);
+  });
 
+  async function updateDelivaryStatus() {
+    // Get tomorrow's date (You need to define this function or use a library)
+    const tomorrowDate = getTomorrowDate();
+  
+    try {
+      const querySnapshotUp = await getDocs(collection(db, "users"));
+      querySnapshotUp.forEach(async (docItem1) => {
+        const userData1 = docItem1.data();
+        if (userData1.orders) {
+          const matchingOrders = userData1.orders.map((order) => {
+            if (order.date === tomorrowDate + "m") {
+              return { ...order, delivaryStatus: true }; // Corrected typo "delivaryStatus" to "deliveryStatus"
+            }
+            return order;
+
+          }); 
+          
+          try {
+            // Update the entire user document with the modified orders field
+            await setDoc(doc(db, "users", docItem1.id), {
+              ...userData1,
+              orders: matchingOrders,
+            });
+           
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
+  }
+  
+  //console.log(todaysMeatOrders)
+
+  
   return (
     <div className="meat-container">
       <LoaderPopup loadStatus={status}/>
@@ -125,12 +163,14 @@ function MeatOrders() {
                 <input value={muttonCost} type="number" placeholder="Enter quantity" required id = "muttoncost" onChange={(e=>setMuttonCost(e.target.value))}/>
             </div>
             <div>
-                <button className='submit-button' type="submit">Submit</button>
+                <button className='submit-button-one' type="submit">Submit</button>
             </div>
         </form>
       </div>
+      <h1 className='today'>Orders for Today</h1>
+      <button onClick={updateDelivaryStatus} className='delivary-button'>Update Delivary status</button>
       <div className='table-container4'>
-        <table className="orders-table4">
+        <table id="or1" className="orders-table4">
           <thead>
             <tr>
               <th className="table-row4">Name</th>
@@ -139,6 +179,7 @@ function MeatOrders() {
               <th className="table-row4">Address</th>
               <th className="table-row4">Items</th>
               <th className="table-row4">Total Amount</th>
+              <th className="table-row4">Delivary Status</th>
             </tr>
           </thead>
           <tbody>
@@ -175,6 +216,9 @@ function MeatOrders() {
                 </td>
                 <td style={{color:"olive",fontWeight:"bold"}}>
                   {order.orders.reduce((acc, cur) => acc + cur.payment, 0)}
+                </td>
+                <td style={{color:"olive",fontWeight:"bold"}}>
+                  {order.orders[0].delivaryStatus?"Delivered":"Not Delivered"}
                 </td>
               </tr>
             ))}
