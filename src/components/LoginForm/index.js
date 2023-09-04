@@ -52,9 +52,10 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="login-container parallel-login-container">
       <div className="login-box">
         <h2 className="login-heading">Login</h2>
+        <p style={{textAlign:"center",margin:"10px"}}>Nandhi Farms</p>
         <form onSubmit={handleLogin}>
           <div className="input-group">
             <label htmlFor="username">Email</label>
@@ -76,7 +77,7 @@ const LoginForm = () => {
           </div>
           <button className="button" type="submit">Login</button>
           <p className="para" style={{ textAlign: "center" }}>
-            If you are not a user please click here to{" "}
+            If you are not a user please click here to<br></br>
             <Link className="para-link" to="/signup">sign up</Link>
           </p>
           <p className="para" style={{ textAlign: "center" }}>
