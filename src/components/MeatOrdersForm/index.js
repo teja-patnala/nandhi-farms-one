@@ -272,7 +272,7 @@ function MeatOrdersForm() {
               </form>
             </div>
           </div>
-          <h3>Natu Kodi Meat</h3>
+          <h3>Chicken</h3>
           <h4>cost : {meatData.chickenCost}/kg</h4>
           <p>Available Quantity: {meatData.chickenQuantity} Kgs</p>
           <p style={{paddingTop:"4px"}}>{(meatData.chickenQuantity===0 || meatData.chickenQuantity < chicken)&&"OUT OF STOCK"}</p>
@@ -292,7 +292,7 @@ function MeatOrdersForm() {
               </form>
             </div>
           </div>
-          <h3>Goat Meat</h3>
+          <h3>Mutton</h3>
           <h4>cost : {meatData.muttonCost}/kg</h4>
           <p>Available Quantity: {meatData.muttonQuantity} kgs</p>
           <p style={{paddingTop:"4px"}}>{(meatData.muttonQuantity===0 || meatData.muttonQuantity < mutton) &&"OUT OF STOCK"}</p>
@@ -312,7 +312,7 @@ function MeatOrdersForm() {
               </form>
             </div>
           </div>
-          <h3>Natu Kodi Eggs</h3>
+          <h3>Eggs</h3>
           <h4>cost : {meatData.eggsCost}/Egg</h4>
           <p>Available Quantity: {meatData.eggsQuantity} Eggs</p>
           <p style={{paddingTop:"4px"}}>{(meatData.eggsQuantity===0 || meatData.eggsQuantity < eggs)&&"OUT OF STOCK"}</p>

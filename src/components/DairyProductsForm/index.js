@@ -306,7 +306,7 @@ function DairyProductsForm() {
                 <div>
                   <label htmlFor='honey'>Enter Quantity</label>
                   <input min="0" value={honey} onChange={(e) => setHoney(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="honey" type="number" /><br />
-                  <button  disabled={productsData.honeyQuantity===0 || productsData.honeyQuantity < honey} id='meat-button' type="submit">Add to Cart</button>
+                  <button disabled={productsData.honeyQuantity===0 || productsData.honeyQuantity < honey} id='meat-button' type="submit">Add to Cart</button>
                 </div>
               </form>
             </div>
