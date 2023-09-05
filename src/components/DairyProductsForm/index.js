@@ -265,8 +265,8 @@ function DairyProductsForm() {
               <form onSubmit={addCurdQuantity}>
                 <div>
                   <label htmlFor='curd'>Enter Quantity</label>
-                  <input value={curd} onChange={(e) => setCurd(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="curd" type="number" /><br />
-                  <button disabled={productsData.curdQuantity===0} id='meat-button' type="submit">Add to Cart</button>
+                  <input min="0" value={curd} onChange={(e) => setCurd(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="curd" type="number" /><br />
+                  <button disabled={productsData.curdQuantity===0 || productsData.curdQuantity < curd} id='meat-button' type="submit">Add to Cart</button>
                 </div>
               </form>
             </div>
@@ -274,7 +274,7 @@ function DairyProductsForm() {
           <h3>Curd</h3>
           <h4>cost : {productsData.curdCost}/liter</h4>
           <p>Available Quantity: {productsData.curdQuantity} liters</p>
-          <p style={{paddingTop:"4px"}}>{productsData.curdQuantity===0&&"OUT OF STOCK"}</p>
+          <p style={{paddingTop:"4px"}}>{(productsData.curdQuantity===0 || productsData.curdQuantity < curd)&&"OUT OF STOCK"}</p>
         </div>
         <div className="product-card1">
           <div className='meat-cart-container'>
@@ -285,8 +285,8 @@ function DairyProductsForm() {
               <form onSubmit={addGheeQuantity}>
                 <div>
                   <label htmlFor='ghee'>Enter Quantity</label>
-                  <input value={ghee} onChange={(e) => setGhee(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="ghee" type="number" />
-                  <button  disabled={productsData.gheeQuantity===0} id='meat-button' type="submit">Add to Cart</button>
+                  <input min="0" value={ghee} onChange={(e) => setGhee(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="ghee" type="number" />
+                  <button  disabled={productsData.gheeQuantity===0 || productsData.gheeQuantity < ghee} id='meat-button' type="submit">Add to Cart</button>
                 </div>
               </form>
             </div>
@@ -294,7 +294,7 @@ function DairyProductsForm() {
           <h3>Ghee</h3>
           <h4>cost : {productsData.gheeCost}/liter</h4>
           <p>Available Quantity: {productsData.gheeQuantity} liters</p>
-          <p style={{paddingTop:"4px"}}>{productsData.gheeQuantity===0&&"OUT OF STOCK"}</p>
+          <p style={{paddingTop:"4px"}}>{(productsData.gheeQuantity===0 || productsData.gheeQuantity < ghee)&&"OUT OF STOCK"}</p>
         </div>
         <div className="product-card1">
           <div className='meat-cart-container'>
@@ -305,8 +305,8 @@ function DairyProductsForm() {
               <form onSubmit={addHoneyQuantity}>
                 <div>
                   <label htmlFor='honey'>Enter Quantity</label>
-                  <input value={honey} onChange={(e) => setHoney(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="honey" type="number" /><br />
-                  <button  disabled={productsData.honeyQuantity===0} id='meat-button' type="submit">Add to Cart</button>
+                  <input min="0" value={honey} onChange={(e) => setHoney(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="honey" type="number" /><br />
+                  <button  disabled={productsData.honeyQuantity===0 || productsData.honeyQuantity < honey} id='meat-button' type="submit">Add to Cart</button>
                 </div>
               </form>
             </div>
@@ -314,7 +314,7 @@ function DairyProductsForm() {
           <h3>Honey</h3>
           <h4>cost : {productsData.honeyCost}/liter</h4>
           <p>Available Quantity: {productsData.honeyQuantity} liters</p>
-          <p style={{paddingTop:"4px"}}>{productsData.honeyQuantity===0&&"OUT OF STOCK"}</p>
+          <p style={{paddingTop:"4px"}}>{(productsData.honeyQuantity===0 || productsData.honeyQuantity < honey)&& "OUT OF STOCK"}</p>
         </div>
       </section>
       <footer className="footer1">

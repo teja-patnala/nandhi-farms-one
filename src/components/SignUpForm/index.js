@@ -2,8 +2,10 @@ import React, { useState,useEffect} from "react";
 import "./index.css"; // You can create this CSS file to style your sign-up page
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import LoginLoader from "../LoginLoader";
 import {collection,addDoc,serverTimestamp} from "firebase/firestore";
 import {db} from "../../firestore";
+
 
 
 function SignUpForm() {
@@ -28,6 +30,7 @@ function SignUpForm() {
   const {signup} = useAuth()
 
   const [status,setSignupStatus] = useState(false)
+  const [signUpLoader,setSignUpLoader] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,6 +50,7 @@ function SignUpForm() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    setSignUpLoader(true)
 
     if(formData.password===formData.confirmPassword){
       const userFormData = {firstName: formData.firstName,
@@ -72,16 +76,17 @@ function SignUpForm() {
     signup(formData.email, formData.password)
       .then(async() => {
         try{
-          const docRef = await addDoc(collection(db,"users"),{...userFormData,timeStamp:serverTimestamp()});
-          console.log("Document written with ID ",docRef.id)
+          await addDoc(collection(db,"users"),{...userFormData,timeStamp:serverTimestamp()});
         }catch(e){
           console.error("Errpr adding document:  ",e)
           alert(e)
         }
         setSignupStatus(true)
+        setSignUpLoader(false)
       })
       .catch((error) => {
         const errorMessage = error.message;
+        setSignUpLoader(false)
         alert(errorMessage)
       });
     }else{
@@ -93,6 +98,7 @@ function SignUpForm() {
 
   return (
     <div className="signup-container">
+      <LoginLoader loadStatus={signUpLoader}/>
       <div className="signup-box">
         <h2 className="signup-heading">Sign Up Form</h2>
         <form onSubmit={handleSubmit}>

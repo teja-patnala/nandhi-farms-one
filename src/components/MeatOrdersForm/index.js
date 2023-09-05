@@ -266,8 +266,8 @@ function MeatOrdersForm() {
               <form onSubmit={addChickenQuantity}>
                 <div>
                   <label htmlFor='chicken'>Enter Quantity</label>
-                  <input value={chicken} onChange={(e) => setChicken(parseInt(e.target.value))} placeholder='Enter in Liters' className='meat-cart-input' id="chicken" type="number" /><br />
-                  <button disabled={meatData.chickenQuantity===0} id='meat-button' type="submit">Add to Cart</button>
+                  <input min="0" value={chicken} onChange={(e) => setChicken(parseInt(e.target.value))} placeholder='Enter in Liters' className='meat-cart-input' id="chicken" type="number" /><br />
+                  <button disabled={meatData.chickenQuantity===0 || meatData.chickenQuantity < chicken} id='meat-button' type="submit">Add to Cart</button>
                 </div>
               </form>
             </div>
@@ -275,7 +275,7 @@ function MeatOrdersForm() {
           <h3>Natu Kodi Meat</h3>
           <h4>cost : {meatData.chickenCost}/kg</h4>
           <p>Available Quantity: {meatData.chickenQuantity} Kgs</p>
-          <p style={{paddingTop:"4px"}}>{meatData.chickenQuantity===0&&"OUT OF STOCK"}</p>
+          <p style={{paddingTop:"4px"}}>{(meatData.chickenQuantity===0 || meatData.chickenQuantity < chicken)&&"OUT OF STOCK"}</p>
         </div>
         <div className="product-card1">
           <div className='meat-cart-container'>
@@ -286,8 +286,8 @@ function MeatOrdersForm() {
               <form onSubmit={addMuttonQuantity}>
                 <div>
                   <label htmlFor='mutton'>Enter Quantity</label>
-                  <input value={mutton} onChange={(e) => setMutton(parseInt(e.target.value))} placeholder='Enter in Liters' className='meat-cart-input' id="mutton" type="number" />
-                  <button disabled={meatData.muttonQuantity===0} id='meat-button' type="submit">Add to Cart</button>
+                  <input min="0" value={mutton} onChange={(e) => setMutton(parseInt(e.target.value))} placeholder='Enter in Liters' className='meat-cart-input' id="mutton" type="number" />
+                  <button disabled={meatData.muttonQuantity===0 || meatData.muttonQuantity < mutton} id='meat-button' type="submit">Add to Cart</button>
                 </div>
               </form>
             </div>
@@ -295,7 +295,7 @@ function MeatOrdersForm() {
           <h3>Goat Meat</h3>
           <h4>cost : {meatData.muttonCost}/kg</h4>
           <p>Available Quantity: {meatData.muttonQuantity} kgs</p>
-          <p style={{paddingTop:"4px"}}>{meatData.muttonQuantity===0&&"OUT OF STOCK"}</p>
+          <p style={{paddingTop:"4px"}}>{(meatData.muttonQuantity===0 || meatData.muttonQuantity < mutton) &&"OUT OF STOCK"}</p>
         </div>
         <div className="product-card1">
           <div className='meat-cart-container'>
@@ -306,8 +306,8 @@ function MeatOrdersForm() {
               <form onSubmit={addEggsQuantity}>
                 <div>
                   <label htmlFor='eggs'>Enter Quantity</label>
-                  <input value={eggs} onChange={(e) => setEggs(parseInt(e.target.value))} placeholder='Enter in Liters' className='meat-cart-input' id="eggs" type="number" /><br />
-                  <button disabled={meatData.eggsQuantity===0}  id='meat-button' type="submit">Add to Cart</button>
+                  <input value={eggs} min="0" onChange={(e) => setEggs(parseInt(e.target.value))} placeholder='Enter in Liters' className='meat-cart-input' id="eggs" type="number" /><br />
+                  <button disabled={meatData.eggsQuantity===0 || meatData.eggsQuantity<eggs}  id='meat-button' type="submit">Add to Cart</button>
                 </div>
               </form>
             </div>
@@ -315,7 +315,7 @@ function MeatOrdersForm() {
           <h3>Natu Kodi Eggs</h3>
           <h4>cost : {meatData.eggsCost}/Egg</h4>
           <p>Available Quantity: {meatData.eggsQuantity} Eggs</p>
-          <p style={{paddingTop:"4px"}}>{meatData.eggsQuantity===0&&"OUT OF STOCK"}</p>
+          <p style={{paddingTop:"4px"}}>{(meatData.eggsQuantity===0 || meatData.eggsQuantity < eggs)&&"OUT OF STOCK"}</p>
         </div>
       </section>
       <footer className="footer1">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.css"
 import { Link ,useNavigate} from "react-router-dom";
+import LoginLoader from "../LoginLoader"
 import { useAuth } from "../../context/AuthContext";
 
 
@@ -8,6 +9,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLogin] = useState(false);
+  const [loginLoaderStatus, setLoginLoaderStatus] = useState(false)
   const {login} = useAuth()
   const navigate = useNavigate();
 
@@ -38,21 +40,22 @@ const LoginForm = () => {
 
   const handleLogin = (event) => {
     event.preventDefault();
+    setLoginLoaderStatus(true)
     login(email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user)
-        alert("Login Succesfull")
         setLogin(true);
+        setLoginLoaderStatus(false)
       })
       .catch((error) => {
         const errorMessage = error.message;
-        alert(errorMessage)
+        setLoginLoaderStatus(false)
+        alert(errorMessage.message)
       });
   };
 
   return (
     <div className="login-container parallel-login-container">
+      <LoginLoader loadStatus = {loginLoaderStatus}/>
       <div className="login-box">
         <h2 className="login-heading">Login</h2>
         <p style={{textAlign:"center",margin:"10px"}}>Nandhi Farms</p>
