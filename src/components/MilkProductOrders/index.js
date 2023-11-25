@@ -75,7 +75,7 @@ function MilkProductOrders() {
 
         setTodaysOrders(ordersData);
       } catch (error) {
-        console.error("Error fetching orders:", error);
+        console.error("Error fetching orders:", error.message);
       }
     }
     getTheOrders();

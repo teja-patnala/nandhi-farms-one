@@ -1,8 +1,133 @@
+.new-login-container {
+  height: 100vh;
+  width: 100vw;
+  background-image: url("https://res.cloudinary.com/dxx7ni6cl/image/upload/v1694195951/Cultured-Meat-A.1-1410x0-c-default_-_Copy_pnjk8d.jpg");
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: scroll;
+}
+
+.new-header-login{
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  background-color:rgba(43, 37, 37, 0.895);
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 0px 4px 8px -2px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top:1px;
+}
+.info-font{
+  font-size: 25px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+.para-font{
+  padding:10px;
+  text-align: center;
+}
+.sub-new-header-login {
+  width: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-login-heading {
+  font-size: 30px;
+  font-family: sans-serif; /* Removed quotes */
+  text-align: center; /* Align text center horizontally */
+  margin: 0; /* Reset default margin for h1 */
+}
+
+.new-login-button {
+  /* Add more styles for the button if needed */
+  /* Example styles for centering the button */
+  display: block;
+  margin: 0 auto;
+  width: 120px;
+  height: 40px;
+  border-radius: 30px;
+  background-color: #78693a;
+  /* Center the button horizontally */
+}
+
+.subscription-info {
+  width: 90vw;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: space-between;
+}
+.sub-subscription-info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.sub-info{
+  width: 100%;
+  height: 140px;
+  max-width: 300px;
+  padding: 5%;
+  margin: 5%;
+  min-width: 220px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  box-shadow: 2px #020e0e;
+}
+.h1-one{
+  font-size: 45px;
+  padding-top: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 768px) {
+  .subscription-container {
+    padding: 15px;
+  }
+  .new-login-heading{
+    font-size: 20px;
+  }
+  .sub-subscription-info {
+    flex-direction: column; 
+  }
+  .subscription-container h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .info-font{
+    font-size: 18px;
+  }
+  .para-font{
+    font-size: 16px;
+  }
+  .h1-one{
+    font-size: 30px;
+  }
+}
+
 
 .login-container {
     display: flex;
     justify-content: center;
-    background-image: url("https://res.cloudinary.com/dxx7ni6cl/image/upload/v1693866113/milk-white-droplets-splashing_q0l1ui.jpg");
+    background-color: rgba(0, 0, 0, 0.1);
     background-size: cover;
     align-items: center;
     min-height: 100vh;
@@ -50,12 +175,17 @@
   .input-group {
     margin-bottom: 10px;
     padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
   
   label {
     display: block;
     margin-top: 10px;
     margin-bottom: 5px;
+    margin-left: 0px;
+    padding-left: 0px;
     color: white;
   }
   

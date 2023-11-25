@@ -30,17 +30,16 @@ function Home() {
 
   return (
     <div className="homepage">
+      <Header/>
       <LoaderPopup loadStatus = {load}/>
       <ReactPopUp adminStatus={currentUserData.isAdmin}/>
-      <Header/>
       <section className="hero">
         <h1>Welcome to Nandhi Farms</h1>
         <p>Get fresh and pure milk delivered to your doorstep daily.</p>
         <button onClick={()=>navigate("/subscribe")}>{currentUserData.subscription ? "You are a Subscriber":"Subscribe to Our Organic Milk"}</button><br/>
-        {currentUserData.subscription&&<p>OTP for milk collection</p>}
-        {currentUserData.subscription&&<button className="button-one" type = "button">{currentUserData.otpForMilkCollection}</button>}
+        {currentUserData.subscription && <p>OTP for milk collection</p>}
+        {currentUserData.subscription && <button className="button-one" type = "button">{currentUserData.otpForMilkCollection}</button>}
       </section>
-
       <section className="featured-products">
         <Link to = "/subscribe" className="product-card">
           <div >
@@ -64,7 +63,6 @@ function Home() {
           </div>
         </Link>
       </section>
-
       <footer className="footer">
         <p>&copy; 2023 Milk Daily. All rights reserved.</p>
       </footer>

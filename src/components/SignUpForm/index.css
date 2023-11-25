@@ -21,17 +21,25 @@ body {
 .signup-container {
   display: flex;
   justify-content: center;
-  background-image: url("https://res.cloudinary.com/dxx7ni6cl/image/upload/v1693866113/milk-white-droplets-splashing_q0l1ui.jpg");
+  background-image: url("https://res.cloudinary.com/dxx7ni6cl/image/upload/v1694195951/Cultured-Meat-A.1-1410x0-c-default_-_Copy_pnjk8d.jpg");
   background-size: cover;
   align-items: center;
   height: 100vh;
   animation: slideIn 1s ease;
 }
-
+.spread-container{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(0, 0, 0,0.6);
+}
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -45,10 +53,10 @@ body {
 .signup-box {
   height: 75%;
   overflow-y: scroll;
-  width: 400px;
+  width: 300px;
   padding: 20px;
   margin: 10px;
-  background-color: #1c0614;
+  background-color:transparent;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -68,15 +76,15 @@ label {
 }
 
 input {
-  width: 100%;
-  padding: 10px;
+  width: 90%;
+  padding: 5px;
   border: 1px solid #ccc;
   border-radius: 3px;
 }
 
 h3 {
   margin-top: 20px;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 button {
