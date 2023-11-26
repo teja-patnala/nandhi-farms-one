@@ -1,31 +1,33 @@
-import React from "react";
-import Header from "../Header"
+import React, {useEffect} from "react";import Header from "../Header"
 import Footer from "../Footer";
+import { useTranslation } from 'react-i18next';
 import "./index.css"; // Import your CSS file for styling
-
+import {useAuth} from "../../context/AuthContext";
 
 const AboutUs = () => {
+  const {t,i18n} = useTranslation();
+  const {currentUserDataOne} = useAuth();
+
+  useEffect(()=>{
+    i18n.changeLanguage(currentUserDataOne.multiLanguage)
+  });
+  
   return (
-    <section className="about-us">
+    <div className="about-us">
       <div className="about-content">
-        <Header/>
-        <h2>About Our Organic Farm</h2>
+      <Header/>
+        <h2>{t('aboutHeading')}</h2>
         <div className="div-one">
           <p>
-            Welcome to our organic dairy farm, where we take pride in providing
-            the finest quality organic milk, products, and meats. Our commitment
-            to sustainable and ethical farming practices sets us apart.
+            {t('aboutParaOne')}
           </p>
           <p>
-            We specialize in offering a variety of organic products, including
-            fresh milk, cheese, yogurt, and more. In addition, we offer a
-            selection of organic meats, including goat, chicken, eggs, and quail
-            bird meat.
+            {t('aboutParaTwo')}
           </p>
         </div>
         <Footer/>
       </div>
-    </section>
+    </div>
   );
 };
 

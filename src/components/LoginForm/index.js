@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import "./index.css"
 import { Link ,useNavigate} from "react-router-dom";
-import LoginLoader from "../LoginLoader"
+import { useTranslation } from 'react-i18next';
+import LoginLoader from "../LoginLoader";
 import { useAuth } from "../../context/AuthContext";
+import {LANGUAGES} from "../../constants"
+import {db} from "../../firestore"
+import {collection,query,where,getDocs, updateDoc,} from 'firebase/firestore';
 
 
 const LoginForm = () => {
@@ -12,8 +16,10 @@ const LoginForm = () => {
   const [loginStatus, setLogin] = useState(false);
   const [loginLoaderStatus, setLoginLoaderStatus] = useState(false);
   const [loadStatus,setLoadStatus] = useState(false);
+  const [language,setLanguage] = useState("en");
   const {login} = useAuth();
   const navigate = useNavigate();
+  const {i18n, t} = useTranslation();
 
   useEffect(() => {
     if (loginStatus) {
@@ -29,14 +35,33 @@ const LoginForm = () => {
     setPassword(event.target.value);
   };
 
-  
 
+  const setLanguageMethod = async () => {
+    const q = query(collection(db, "users"), where("email", "==", email));
+    try {
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(async (doc) => {
+        try {
+          const docRef = doc.ref;
+          await updateDoc(docRef, { multiLanguage: language });
+          await i18n.changeLanguage(language); // Change the language immediately after update // Logging the updated language
+        } catch (error) {
+          alert("Error: Language not updated");
+        }
+      });
+    } catch (error) {
+      console.error("Error getting documents: ", error);
+    }
+  };
+
+  
   const handleLogin = (event) => {
     event.preventDefault();
     setLoginLoaderStatus(true)
     login(email, password)
       .then((userCredential) => {
         setLogin(true);
+        setLanguageMethod();
         setLoginLoaderStatus(false);
       })
       .catch((error) => {
@@ -44,6 +69,11 @@ const LoginForm = () => {
         alert("Wrong credentials");
       });
   };
+
+  const changeLanguageFunction = (e) =>{
+    i18n.changeLanguage(e.target.value);
+    setLanguage(e.target.value);
+  }
 
 
   const loginContainePopup = () =>
@@ -57,11 +87,11 @@ const LoginForm = () => {
         >  <div className="login-container parallel-login-container">
             <LoginLoader loadStatus = {loginLoaderStatus}/>
             <div className="login-box">
-              <h2 className="login-heading">Login</h2>
-              <p style={{textAlign:"center",margin:"10px"}}>Nandhi Farms</p>
+              <h2 className="login-heading">{t('loginTitle')}</h2>
+              <p style={{textAlign:"center",margin:"10px"}}>{t('title')}</p>
               <form onSubmit={handleLogin}>
                 <div className="input-group">
-                  <label htmlFor="username">Email</label>
+                  <label htmlFor="username">{t('email')}</label>
                   <input
                     onChange={handleEmail}
                     required
@@ -70,7 +100,7 @@ const LoginForm = () => {
                   />
                 </div>
                 <div className="input-group">
-                  <label htmlFor="password">Password</label>
+                  <label htmlFor="password">{t('password')}</label>
                   <input
                     onChange={handlePassword}
                     required
@@ -78,13 +108,13 @@ const LoginForm = () => {
                     id="password"
                   />
                 </div>
-                <button className="button" type="submit">Login</button>
+                <button className="button" type="submit">{t('loginTitle')}</button>
                 <p className="para" style={{ textAlign: "center" }}>
-                  If you are not a user please click here to<br></br>
-                  <Link className="para-link" to="/signup">sign up</Link>
+                  {t('loginBoxPara')}<br></br>
+                  <Link className="para-link" to="/signup">{t('signup')}</Link>
                 </p>
                 <p className="para" style={{ textAlign: "center" }}>
-                  <Link className="para-link" to="/forgot-password">forgot password</Link>
+                  <Link className="para-link" to="/forgot-password">{t('forgotPswd')}</Link>
                 </p>
               </form>
             </div>
@@ -98,32 +128,37 @@ const LoginForm = () => {
       {loginContainePopup()}
       <div className="new-header-login">
         <div className="sub-new-header-login">
-          <h1 className="new-login-heading">Nandhi Farms</h1>
-          <div>
-            <button className="new-login-button" onClick={()=>setLoadStatus(true)}>Login</button>
+          <h1 className="new-login-heading">{t('title')}</h1>
+          <div className="select-div">
+            <select defaultValue = {i18n.language} onChange={changeLanguageFunction} className="select-dropdown">
+              {LANGUAGES.map(item=>
+                <option value = {item.code}>{item.label}</option>
+              )}
+            </select>
+            <button className="new-login-button" onClick={()=>setLoadStatus(true)}>{t('loginTitle')}</button>
           </div>
         </div>
       </div>
-      <h1 className="h1-one">We enjoy to share our Oraganic products with you</h1>
+      <h1 className="h1-one">{t('mainTitle')}</h1>
       <div className="subscription-info">
         <div className="sub-subscription-info">
           <div className="sub-info">
-            <h1 className="info-font">Milk Subscription</h1>
-            <p className="para-font">Organic milk supplied to our valued subscribers and subscrition avaliable in days that is 1,7 or 30 days. Subscriber will get a regular otp to collect the milk</p>
+            <h1 className="info-font">{t('milkTitle')}</h1>
+            <p className="para-font">{t('aboutMilk')}</p>
           </div>
           <div className="sub-info">
-            <h1 className="info-font">Dairy Delights</h1>
-            <p className="para-font">Dairy products that are obtained from orgain milk products besides naturally harvested only are served to our coustomers home with 24 hours.</p>
+            <h1 className="info-font">{t('delightsTitle')}</h1>
+            <p className="para-font">{t('aboutDelights')}</p>
           </div>
         </div>
         <div className="sub-subscription-info">
           <div className="sub-info">
-            <h1 className="info-font">Nourshing Delights</h1>
-            <p className="para-font">Experince the Organic meat and eggs. we will provide Goat,sheep meat and Chicken and eggs. need a day pre-order for today's need  </p>
+            <h1 className="info-font">{t('nourshingTitle')}</h1>
+            <p className="para-font">{t('aboutNourshing')}</p>
           </div>
           <div className="sub-info">
-            <h1 className="info-font">Bulk Orders for Events</h1>
-            <p className="para-font">On your need please inform us a week before for the event, we always ready orders on avaliable Quantity.Your guest will experince natural flavours of our products.</p>
+            <h1 className="info-font">{t('bulkOrderTitle')}</h1>
+            <p className="para-font">{t('aboutBulkOrders')}</p>
           </div>
         </div>
       </div>

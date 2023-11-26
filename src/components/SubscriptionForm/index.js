@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { collection, doc, query, where, getDocs, setDoc } from 'firebase/firestore';
 import { db } from '../../firestore';
 import { useAuth } from '../../context/AuthContext';
-import Header from '../Header';
+import { useTranslation } from 'react-i18next';
 import SubscriptionPopup from "../SubscriptionPopup"
+import Header from '../Header';
 import './index.css';
 
 const SubscriptionForm = () => {
@@ -14,6 +15,7 @@ const SubscriptionForm = () => {
   const [liters, setLiters] = useState(0);
   const [amount, setAmount] = useState(0);
   const [showStats, setShowStats] = useState(false);
+  const {t,i18n} = useTranslation();
 
   function getFutureDate(daysToAdd) {
     const today = new Date();
@@ -51,7 +53,7 @@ const SubscriptionForm = () => {
       alert('Error updating Firestore:', error);
     }
   }
-
+  console.log(currentUserDataOne.multiLanguage)
   useEffect(() => {
     if (selectedDays !== 0) {
       setTomorrowsDate(getFutureDate(1));
@@ -70,11 +72,13 @@ const SubscriptionForm = () => {
     if (amount === 0) {
       alert('Please enter amount');
     } else {
+    
       var options = {
         key: 'rzp_test_P8LzMHrBgBQ7Y0',
         key_secret: '14BZ4AkfZioI41FGsGzM9VrT',
         amount: amount * 100,
         currency: 'INR',
+        locale:currentUserDataOne.multiLanguage,
         name: 'NANDHI FARMS',
         description: 'for testing purpose',
         handler: function (response) {
@@ -115,34 +119,34 @@ const SubscriptionForm = () => {
       <Header/>
       <div className="payment-container">
         <SubscriptionPopup userData={currentUserDataOne}/>
-          <h2 className="heading">Select Number of Days</h2>
+          <h2 className="heading">{t('subFormDays')}</h2>
           <select className='select' value={selectedDays} onChange={(e)=>setSelectedDays(parseInt(e.target.value))}>
-            <option value={0}>0 day</option>
-            <option value={1}>1 day</option>
-            <option value={7}>7 days</option>
-            <option value={30}>30 days</option>
+            <option value={0}>0 {t('days')}</option>
+            <option value={1}>1 {t('days')}</option>
+            <option value={7}>7 {t('days')}</option>
+            <option value={30}>30 {t('days')}</option>
           </select>
-          <h2 className='heading'>Select Number of liters per day</h2>
+          <h2 className='heading'>{t('subFormPerDays')}</h2>
           <select className='select' value={liters} onChange={(e)=>setLiters(parseInt(e.target.value))}>
-            <option selected value={0}>0 liters</option>
-            <option value={1}>1 liters</option>
-            <option value={2}>2 liters</option>
-            <option value={3}>3 liters</option>
-            <option value={4}>4 liters</option>
+            <option selected value={0}>0 {t('liters')}</option>
+            <option value={1}>1 {t('liters')}</option>
+            <option value={2}>2 {t('liters')}</option>
+            <option value={3}>3 {t('liters')}</option>
+            <option value={4}>4 {t('liters')}</option>
           </select>
           <div className="date-container">
             {showStats&&
             <div className='milk-details-card'>
-              <p className='supply-heading'>Milk Supplied</p>
-              {selectedDays===1 ? <p>only one day on : {tomorrowsDate}</p> :<><p>Days : {selectedDays}</p>
-              <p>From : {tomorrowsDate}</p>
-              <p>End : {endDate}</p>
+              <p className='supply-heading'>{t('milkSupplied')}</p>
+              {selectedDays===1 ? <p>{t('oneDay')} {tomorrowsDate}</p> :<><p>{t('days')} : {selectedDays}</p>
+              <p>{t('from')} : {tomorrowsDate}</p>
+              <p>{t('end')}: {endDate}</p>
                </>}
             </div>
             }
           </div>
           <div className="pay-button-container">
-            <button disabled={currentUserDataOne.subscription} value = {amount} onClick={handleSubmit} className="pay-button">{selectedDays * 60 *liters} rupees - Pay Now</button>
+            <button disabled={currentUserDataOne.subscription} value = {amount} onClick={handleSubmit} className="pay-button">{selectedDays * 60 *liters} {t('cost')}</button>
           </div>
         </div>
     </div>

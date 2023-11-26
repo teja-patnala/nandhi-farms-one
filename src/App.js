@@ -1,4 +1,5 @@
 import React from "react";
+import {Suspense} from 'react';
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Home from "./components/Home";
 import LoginForm from "./components/LoginForm";
@@ -17,26 +18,31 @@ import MeatOrdersForm from "./components/MeatOrdersForm";
 import OrdersForm from "./components/OrdersForm"
 import DairyProductsForm from "./components/DairyProductsForm"
 
-const App = () => (
-  <BrowserRouter>
-    <AuthProvider>
-      <Routes>
-        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/signup" element={<SignUpForm />} />
-        <Route path="/forgot-password" element={<ForgotPasswordForm />} />
-        <Route path="/change-password" element={<ProtectedRoute><PasswordChangeForm /></ProtectedRoute>} />
-        <Route path="/about" element={<ProtectedRoute><AboutUs /></ProtectedRoute>} />
-        <Route path="/contact" element={<ProtectedRoute><ContactForm /></ProtectedRoute>} />
-        <Route path="/orders" element={<ProtectedRoute><OrdersForm /></ProtectedRoute>} />
-        <Route path="/subscribe" element={<ProtectedRoute><SubscriptionForm /></ProtectedRoute>} />
-        <Route path="/meat" element={<ProtectedRoute><MeatOrdersForm /></ProtectedRoute>} />
-        <Route path="/products" element={<ProtectedRoute><DairyProductsForm /></ProtectedRoute>} />
-        <Route path="/admin" element={<AdminProtectedRoute><AdminPage /></AdminProtectedRoute>} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </AuthProvider>  
-  </BrowserRouter>
-);
+const App = () =>{
+
+  return (
+    <Suspense>
+      <BrowserRouter>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/signup" element={<SignUpForm />} />
+            <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+            <Route path="/change-password" element={<ProtectedRoute><PasswordChangeForm /></ProtectedRoute>} />
+            <Route path="/about" element={<ProtectedRoute><AboutUs /></ProtectedRoute>} />
+            <Route path="/contact" element={<ProtectedRoute><ContactForm /></ProtectedRoute>} />
+            <Route path="/orders" element={<ProtectedRoute><OrdersForm /></ProtectedRoute>} />
+            <Route path="/subscribe" element={<ProtectedRoute><SubscriptionForm /></ProtectedRoute>} />
+            <Route path="/meat" element={<ProtectedRoute><MeatOrdersForm /></ProtectedRoute>} />
+            <Route path="/products" element={<ProtectedRoute><DairyProductsForm /></ProtectedRoute>} />
+            <Route path="/admin" element={<AdminProtectedRoute><AdminPage /></AdminProtectedRoute>} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </AuthProvider>  
+      </BrowserRouter>
+    </Suspense>
+  );
+}
 
 export default App;

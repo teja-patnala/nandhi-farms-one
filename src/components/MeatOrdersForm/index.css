@@ -10,7 +10,7 @@ body, h1, h2, h3, p, ul{
 .homepage1 {
   font-family: Arial, sans-serif;
   min-height: 100vh;
-  background-color:#17202A;
+  background-color:white;
 }
 h4{
   color: #80ca5e;
@@ -24,7 +24,7 @@ p{
   text-align: center;
   color: white;
   padding: 10px;
-  background-color:#34282C;
+  background-color:white;
 }
 
 .hero1 h1 {
@@ -84,7 +84,7 @@ p{
   justify-content: center;
   gap: 2rem;
   padding: 3rem 0;
-  background-color:transparent;
+  background-color:white;
 }
 
 .product-card1 {
@@ -93,7 +93,7 @@ p{
   max-width: 300px;
   text-align: center;
   border-radius: 5px;
-  background-color:#25383C;
+  background-color:#e0ecee;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
 }

@@ -5,6 +5,7 @@ import {doc,getDoc,collection, query, where, getDocs, setDoc} from "firebase/fir
 import { useAuth } from '../../context/AuthContext';
 import Header from "../Header";
 import Popup from "reactjs-popup";
+import { useTranslation } from 'react-i18next';
 import "reactjs-popup/dist/index.css";
 import './index.css';
 
@@ -15,6 +16,7 @@ function DairyProductsForm() {
   const [ghee, setGhee] = useState(0);
   const [honey, setHoney] = useState(0);
   const {currentUserDataOne,setMyValue,setProductsCost} = useAuth()
+  const {t,i18n} = useTranslation();
 
 
   function getTomorrowDate() {
@@ -156,7 +158,7 @@ function DairyProductsForm() {
       try {
         const docRef = doc(db, "productsQuantity", "quantity");
         const docSnap = await getDoc(docRef);
-        
+        i18n.changeLanguage(currentUserDataOne.multiLanguage)
         if (docSnap.exists()) {
           // Use data() method to access the document data
           const productsData = docSnap.data();
@@ -211,9 +213,9 @@ function DairyProductsForm() {
                     <table className='table' >
                      <thead>
                         <tr>
-                          <th>Item</th>
-                          <th>Quantity</th>
-                          <th>Cost/liter</th>
+                          <th>{t('items')}</th>
+                          <th>{t('quantity')}</th>
+                          <th>{t('cos')}/{t('liter')}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -230,16 +232,16 @@ function DairyProductsForm() {
                       <tfoot>
                         <tr className='table-row'>
                           <td colSpan="2">
-                            total Cost : 
+                            {t('totalCost')} : 
                           </td>
                           <td>
-                            {getTheCostOfItem()} Rupees
+                            {getTheCostOfItem()} {t('rupees')}
                           </td>
                         </tr>
                       </tfoot>
                     </table>
-                    <p className='para'>{Object.keys(cart).length===0?"Please add items to cart": `You will recive your order on ${getTomorrowDate()}`}</p>
-                    <button className='trigger-button' onClick={()=>paymentGateway(getTheCostOfItem())}>Pay</button>
+                    <p className='para'>{Object.keys(cart).length===0?t('addMessage'): `${t('dairyDDate')} ${getTomorrowDate()}`}</p>
+                    <button className='trigger-button' onClick={()=>paymentGateway(getTheCostOfItem())}>{t('pay')}</button>
                   </div>
                 </div>
                 <button 
@@ -247,7 +249,7 @@ function DairyProductsForm() {
                   className='trigger-button'
                   onClick={()=>close()}
                 >
-                  close
+                  {t('close')}
                 </button>
               </>
             )
@@ -264,17 +266,17 @@ function DairyProductsForm() {
             <div className='sub-meat-container'>
               <form onSubmit={addCurdQuantity}>
                 <div>
-                  <label htmlFor='curd'>Enter Quantity</label>
+                  <label htmlFor='curd'>{t('enterQuantity')}</label>
                   <input min="0" value={curd} onChange={(e) => setCurd(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="curd" type="number" /><br />
-                  <button disabled={productsData.curdQuantity===0 || productsData.curdQuantity < curd} id='meat-button' type="submit">Add to Cart</button>
+                  <button disabled={productsData.curdQuantity===0 || productsData.curdQuantity < curd} id='meat-button' type="submit">{t('addToCart')}</button>
                 </div>
               </form>
             </div>
           </div>
-          <h3>Curd</h3>
-          <h4>cost : {productsData.curdCost}/liter</h4>
-          <p>Available Quantity: {productsData.curdQuantity} liters</p>
-          <p style={{paddingTop:"4px"}}>{(productsData.curdQuantity===0 || productsData.curdQuantity < curd)&&"OUT OF STOCK"}</p>
+          <h3>{t('curb')}</h3>
+          <h4>{t('productCost')} : {productsData.curdCost}/{t('liter')}</h4>
+          <p>{t('avaliableQuantity')}: {productsData.curdQuantity} {t('liters')}</p>
+          <p style={{paddingTop:"4px"}}>{(productsData.curdQuantity===0 || productsData.curdQuantity < curd)&& t('outOFStock')}</p>
         </div>
         <div className="product-card1">
           <div className='meat-cart-container'>
@@ -284,17 +286,17 @@ function DairyProductsForm() {
             <div className='sub-meat-container'>
               <form onSubmit={addGheeQuantity}>
                 <div>
-                  <label htmlFor='ghee'>Enter Quantity</label>
+                  <label htmlFor='ghee'>{t('enterQuantity')}</label>
                   <input min="0" value={ghee} onChange={(e) => setGhee(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="ghee" type="number" />
-                  <button  disabled={productsData.gheeQuantity===0 || productsData.gheeQuantity < ghee} id='meat-button' type="submit">Add to Cart</button>
+                  <button  disabled={productsData.gheeQuantity===0 || productsData.gheeQuantity < ghee} id='meat-button' type="submit">{t('addToCart')}</button>
                 </div>
               </form>
             </div>
           </div>
-          <h3>Ghee</h3>
-          <h4>cost : {productsData.gheeCost}/liter</h4>
-          <p>Available Quantity: {productsData.gheeQuantity} liters</p>
-          <p style={{paddingTop:"4px"}}>{(productsData.gheeQuantity===0 || productsData.gheeQuantity < ghee)&&"OUT OF STOCK"}</p>
+          <h3>{t('ghee')}</h3>
+          <h4>{t('productCost')} : {productsData.gheeCost}/liter</h4>
+          <p>{t('avaliableQuantity')}: {productsData.gheeQuantity} {t('liters')}</p>
+          <p style={{paddingTop:"4px"}}>{(productsData.gheeQuantity===0 || productsData.gheeQuantity < ghee)&& t('outOFStock')}</p>
         </div>
         <div className="product-card1">
           <div className='meat-cart-container'>
@@ -304,21 +306,21 @@ function DairyProductsForm() {
             <div className='sub-meat-container'>
               <form onSubmit={addHoneyQuantity}>
                 <div>
-                  <label htmlFor='honey'>Enter Quantity</label>
+                  <label htmlFor='honey'>{t('enterQuantity')}</label>
                   <input min="0" value={honey} onChange={(e) => setHoney(parseInt(e.target.value))} placeholder='Enter in Kgs' className='meat-cart-input' id="honey" type="number" /><br />
-                  <button disabled={productsData.honeyQuantity===0 || productsData.honeyQuantity < honey} id='meat-button' type="submit">Add to Cart</button>
+                  <button disabled={productsData.honeyQuantity===0 || productsData.honeyQuantity < honey} id='meat-button' type="submit">{t('addToCart')}</button>
                 </div>
               </form>
             </div>
           </div>
-          <h3>Honey</h3>
-          <h4>cost : {productsData.honeyCost}/liter</h4>
-          <p>Available Quantity: {productsData.honeyQuantity} liters</p>
-          <p style={{paddingTop:"4px"}}>{(productsData.honeyQuantity===0 || productsData.honeyQuantity < honey)&& "OUT OF STOCK"}</p>
+          <h3>{t('Honey')}</h3>
+          <h4>{t('productCost')} : {productsData.honeyCost}/liter</h4>
+          <p>{t('avaliableQuantity')}: {productsData.honeyQuantity} {t('liters')}</p>
+          <p style={{paddingTop:"4px"}}>{(productsData.honeyQuantity===0 || productsData.honeyQuantity < honey)&& t('outOFStock')}</p>
         </div>
       </section>
       <footer className="footer1">
-        <p>&copy; 2023 Milk Daily. All rights reserved.</p>
+        <p>{t('footer')}</p>
       </footer>
     </div>
   );

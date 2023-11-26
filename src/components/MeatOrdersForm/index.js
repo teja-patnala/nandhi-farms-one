@@ -4,6 +4,7 @@ import {AiOutlineShoppingCart} from "react-icons/ai"
 import {doc,getDoc,collection, query, where, getDocs, setDoc} from "firebase/firestore";
 import { useAuth } from '../../context/AuthContext';
 import Header from "../Header";
+import { useTranslation } from 'react-i18next';
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import './index.css';
@@ -15,8 +16,8 @@ function MeatOrdersForm() {
   const [mutton, setMutton] = useState(0);
   const [eggs, setEggs] = useState(0);
   const {currentUserDataOne,setMyValue,setProductsCost} = useAuth()
-
-
+  const {t,i18n} = useTranslation();
+  
 
   function getTomorrowDate() {
     const today = new Date();
@@ -103,7 +104,6 @@ function MeatOrdersForm() {
 
     try {
       await setDoc(docRef, payload);
-
     } catch (error) {
       alert('Error updating Firestore:', error);
     }
@@ -157,7 +157,7 @@ function MeatOrdersForm() {
       try {
         const docRef = doc(db, "meatQuantity", "quantity");
         const docSnap = await getDoc(docRef);
-        
+        i18n.changeLanguage(currentUserDataOne.multiLanguage)
         if (docSnap.exists()) {
           // Use data() method to access the document data
           const meatData = docSnap.data();
@@ -212,9 +212,9 @@ function MeatOrdersForm() {
                     <table className='table' >
                      <thead>
                         <tr>
-                          <th>Item</th>
-                          <th>Quantity</th>
-                          <th>Cost/Kg</th>
+                          <th>{t('items')}</th>
+                          <th>{t('quantity')}</th>
+                          <th>{t('cos')}/Kg</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -231,16 +231,16 @@ function MeatOrdersForm() {
                       <tfoot>
                         <tr className='table-row'>
                           <td colSpan="2">
-                            total Cost : 
+                            {t('totalCost')} : 
                           </td>
                           <td>
-                            {getTheCostOfItem()} Rupees
+                            {getTheCostOfItem()} {t('rupees')}
                           </td>
                         </tr>
                       </tfoot>
                     </table>
-                    <p className='para'>{Object.keys(cart).length===0?"Please add items to cart": `You will recive your order on ${getTomorrowDate()}`}</p>
-                    <button className='trigger-button' onClick={()=>paymentGateway(getTheCostOfItem())}>Pay</button>
+                    <p className='para'>{Object.keys(cart).length===0?t('addMessage'): `${t('dairyDDate')} ${getTomorrowDate()}`}</p>
+                    <button className='trigger-button' onClick={()=>paymentGateway(getTheCostOfItem())}>{t('pay')}</button>
                   </div>
                 </div>
                 <button 
@@ -248,7 +248,7 @@ function MeatOrdersForm() {
                   className='trigger-button'
                   onClick={()=>close()}
                 >
-                  close
+                  {t('close')}
                 </button>
               </>
             )
@@ -272,10 +272,10 @@ function MeatOrdersForm() {
               </form>
             </div>
           </div>
-          <h3>Chicken</h3>
-          <h4>cost : {meatData.chickenCost}/kg</h4>
-          <p>Available Quantity: {meatData.chickenQuantity} Kgs</p>
-          <p style={{paddingTop:"4px"}}>{(meatData.chickenQuantity===0 || meatData.chickenQuantity < chicken)&&"OUT OF STOCK"}</p>
+          <h3>{t('chicken')}</h3>
+          <h4>{t('productCost')} : {meatData.chickenCost}/kg</h4>
+          <p>{t('avaliableQuantity')}: {meatData.chickenQuantity} Kgs</p>
+          <p style={{paddingTop:"4px"}}>{(meatData.chickenQuantity===0 || meatData.chickenQuantity < chicken)&& t('outOFStock')}</p>
         </div>
         <div className="product-card1">
           <div className='meat-cart-container'>
@@ -285,17 +285,17 @@ function MeatOrdersForm() {
             <div className='sub-meat-container'>
               <form onSubmit={addMuttonQuantity}>
                 <div>
-                  <label htmlFor='mutton'>Enter Quantity</label>
+                  <label htmlFor='mutton'>{t('enterQuantity')}</label>
                   <input min="0" value={mutton} onChange={(e) => setMutton(parseInt(e.target.value))} placeholder='Enter in Liters' className='meat-cart-input' id="mutton" type="number" />
-                  <button disabled={meatData.muttonQuantity===0 || meatData.muttonQuantity < mutton} id='meat-button' type="submit">Add to Cart</button>
+                  <button disabled={meatData.muttonQuantity===0 || meatData.muttonQuantity < mutton} id='meat-button' type="submit">{t('addToCart')}</button>
                 </div>
               </form>
             </div>
           </div>
-          <h3>Mutton</h3>
-          <h4>cost : {meatData.muttonCost}/kg</h4>
-          <p>Available Quantity: {meatData.muttonQuantity} kgs</p>
-          <p style={{paddingTop:"4px"}}>{(meatData.muttonQuantity===0 || meatData.muttonQuantity < mutton) &&"OUT OF STOCK"}</p>
+          <h3>{t('mutton')}</h3>
+          <h4>{t('productCost')} : {meatData.muttonCost}/kg</h4>
+          <p>{t('avaliableQuantity')}: {meatData.muttonQuantity} kgs</p>
+          <p style={{paddingTop:"4px"}}>{(meatData.muttonQuantity===0 || meatData.muttonQuantity < mutton) && t('outOFStock')}</p>
         </div>
         <div className="product-card1">
           <div className='meat-cart-container'>
@@ -312,14 +312,14 @@ function MeatOrdersForm() {
               </form>
             </div>
           </div>
-          <h3>Eggs</h3>
-          <h4>cost : {meatData.eggsCost}/Egg</h4>
-          <p>Available Quantity: {meatData.eggsQuantity} Eggs</p>
-          <p style={{paddingTop:"4px"}}>{(meatData.eggsQuantity===0 || meatData.eggsQuantity < eggs)&&"OUT OF STOCK"}</p>
+          <h3>{t('eggs')}</h3>
+          <h4>{t('productCost')} : {meatData.eggsCost}/{t('egg')}</h4>
+          <p>{t('avaliableQuantity')}: {meatData.eggsQuantity} {t('eggs')}</p>
+          <p style={{paddingTop:"4px"}}>{(meatData.eggsQuantity===0 || meatData.eggsQuantity < eggs)&& t('outOFStock')}</p>
         </div>
       </section>
       <footer className="footer1">
-        <p>&copy; 2023 Milk Daily. All rights reserved.</p>
+        <p>{t('footer')}</p>
       </footer>
     </div>
   );
