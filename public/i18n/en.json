@@ -77,5 +77,16 @@
     "chicken":"Chicken",
     "mutton":"Mutton",
     "eggs" : "Eggs",
-    "egg":"Egg"
+    "egg":"Egg",
+    "milkSubs":"Milk Subscription",
+    "milkSubsPara":"Get fresh milk delivered to your doorstep every week!",
+    "subsNow":"Subscribe Now",
+    "buyNow":"Buy Now",
+    "logAlert":"Please Login To Subscribe",
+    "honeyP":"Pure and natural organic honey sourced from Nandi Farms.",
+    "chickenP":"Fresh and high-quality chicken from Nandi Farms.",
+    "gheeP":"Rich and aromatic ghee made with care at Nandi Farms.",
+    "curdP":"Creamy and nutritious curd made at Nandi Farms.",
+    "muttonP" :"Tender and flavorful mutton from Nandi Farms.",
+    "eggsP":"Fresh and farm-raised eggs from Nandi Farms."
 }

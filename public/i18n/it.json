@@ -77,5 +77,16 @@
     "chicken": "Pollo",
     "mutton": "Agnello",
     "eggs": "Uova",
-    "egg": "Uovo"
+    "egg": "Uovo",
+    "milkSubs": "Abbonamento al Latte",
+    "milkSubsPara": "Ricevi latte fresco consegnato alla tua porta ogni settimana!",
+    "subsNow": "Abbonati ora",
+    "buyNow": "Acquista ora",
+    "logAlert": "Si prega di accedere per iscriversi",
+    "honeyP": "Miele biologico puro e naturale proveniente da Nandi Farms.",
+    "chickenP": "Pollo fresco e di alta qualità da Nandi Farms.",
+    "gheeP": "Ghee ricco e aromatico prodotto con cura presso Nandi Farms.",
+    "curdP": "Yogurt cremoso e nutriente prodotto presso Nandi Farms.",
+    "muttonP": "Agnello tenero e saporito proveniente da Nandi Farms.",
+    "eggsP": "Uova fresche e allevate in fattoria da Nandi Farms."
 }

@@ -74,5 +74,16 @@
     "chicken": "Pollo",
     "mutton": "Cordero",
     "eggs": "Huevos",
-    "egg": "Huevo"
+    "egg": "Huevo",
+    "milkSubs": "Suscripción de Leche",
+    "milkSubsPara": "¡Recibe leche fresca en tu puerta todas las semanas!",
+    "subsNow": "Suscribirse ahora",
+    "buyNow": "Comprar ahora",
+    "logAlert": "Por favor, inicie sesión para suscribirse",
+    "honeyP": "Miel orgánica pura y natural proveniente de Nandi Farms.",
+    "chickenP": "Pollo fresco y de alta calidad de Nandi Farms.",
+    "gheeP": "Ghee rico y aromático hecho con cuidado en Nandi Farms.",
+    "curdP": "Cremoso y nutritivo yogur elaborado en Nandi Farms.",
+    "muttonP": "Cordero tierno y sabroso de Nandi Farms.",
+    "eggsP": "Huevos frescos criados en granja de Nandi Farms."
 }

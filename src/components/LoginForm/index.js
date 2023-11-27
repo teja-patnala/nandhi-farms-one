@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
-import "./index.css"
+import "./index.css";
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import { Link ,useNavigate} from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import LoginLoader from "../LoginLoader";
@@ -20,6 +23,11 @@ const LoginForm = () => {
   const {login} = useAuth();
   const navigate = useNavigate();
   const {i18n, t} = useTranslation();
+  const items = [t('chicken'), t("mutton"), t("eggs"), t("ghee"), t("Curd"), t("honey")]
+  const itemsTitle =[t('chickenP'), t("muttonP"), t("eggsP"), t("gheeP"), t("curdP"), t("honeyP")]
+  const links = ["https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1701067701/chicken-whole_ucpiuz.jpg","https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1701067694/6393016ac2daf7947f26723a_lamb-_-cholesterol_ox1bpf.jpg","https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1701067702/Butlers-Eggs-HomeCarousel-1400x800_o1lmfq.jpg","https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1701067699/ghee-1-scaled_hyyktb.webp",
+  "https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1701067698/shutterstock_1192618696-1_l8xnor.jpg",
+  "https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1701067697/organic-honey_addtkb.jpg"];
 
   useEffect(() => {
     if (loginStatus) {
@@ -122,26 +130,54 @@ const LoginForm = () => {
         </Popup>
       </div>
     )}
+ 
+  const ReactSlick = () => {
+    const settings = {
+      dots: false,
+      slidesToShow: 3,
+      slidesToScroll: 3,
+      infinite: true,
+      speed: 10000, // Set the speed for smooth scrolling
+      autoplay: true,
 
-  return (
-    <div className="new-login-container">
-      {loginContainePopup()}
-      <div className="new-header-login">
-        <div className="sub-new-header-login">
-          <h1 className="new-login-heading">{t('title')}</h1>
-          <div className="select-div">
-            <select defaultValue = {i18n.language} onChange={changeLanguageFunction} className="select-dropdown">
-              {LANGUAGES.map(item=>
-                <option value = {item.code}>{item.label}</option>
-              )}
-            </select>
-            <button className="new-login-button" onClick={()=>setLoadStatus(true)}>{t('loginTitle')}</button>
-          </div>
-        </div>
-      </div>
-      <h1 className="h1-one">{t('mainTitle')}</h1>
-      <div className="subscription-info">
-        <div className="sub-subscription-info">
+      autoplaySpeed: 0, // Set to zero to customize the autoplay speed
+      cssEase: 'linear', // Use linear easing for a consistent speed
+      pauseOnHover: true, // Pause on hover to allow interaction
+      pauseOnFocus: true, // Pause on focus for accessibility
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+          },
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          },
+        },
+      ],
+    };
+
+    // Function to pause autoplay immediately on hover
+  const handleHover = (slider) => {
+    slider.pause();
+  };
+
+  // Function to resume autoplay when cursor leaves the carousel
+  const handleLeave = (slider) => {
+    slider.play();
+  };
+  
+    return (
+      <div className="slider-container">
+        <Slider {...settings}
+          onMouseEnter={handleHover}
+          onMouseLeave={handleLeave}
+        >
           <div className="sub-info">
             <h1 className="info-font">{t('milkTitle')}</h1>
             <p className="para-font">{t('aboutMilk')}</p>
@@ -150,8 +186,6 @@ const LoginForm = () => {
             <h1 className="info-font">{t('delightsTitle')}</h1>
             <p className="para-font">{t('aboutDelights')}</p>
           </div>
-        </div>
-        <div className="sub-subscription-info">
           <div className="sub-info">
             <h1 className="info-font">{t('nourshingTitle')}</h1>
             <p className="para-font">{t('aboutNourshing')}</p>
@@ -160,8 +194,58 @@ const LoginForm = () => {
             <h1 className="info-font">{t('bulkOrderTitle')}</h1>
             <p className="para-font">{t('aboutBulkOrders')}</p>
           </div>
+        </Slider>
+        <div class="subscription-container1">
+          <div class="subscription-info1">
+            <div class="sub-info1">
+              <h1>{t('milkSubs')}</h1>
+              <p className="p11">{t('milkSubsPara')}</p>
+              <img src="https://res.cloudinary.com/dxx7ni6cl/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1701073084/funny-cow-with-jar-milk-dark-blue-mystery-background-generative-ai_935190-304_kvcmlw.jpg" alt="Milk" />
+              <button onClick={()=>
+                alert(t('logAlert'))
+              } class="subscribe-button1">{t('subsNow')}</button>
+            </div>
+          </div>
         </div>
       </div>
+    );
+  };
+
+  
+  return (
+    <div className="new-login-container">
+      {loginContainePopup()}
+      <div className="new-header-login">
+        <div className="sub-new-header-login">
+          <h1 className="new-login-heading animate-charcter">{t('title')}</h1>
+          <div className="select-div">
+            <select defaultValue = {i18n.language} onChange={changeLanguageFunction} className="select-dropdown">
+              {LANGUAGES.map(item=>
+                <option value = {item.code}>{item.label}</option>
+              )}
+            </select>
+            <button  className="new-login-button" onClick={()=>setLoadStatus(true)}>{t('loginTitle')}</button>
+          </div>
+        </div>
+      </div>
+      <h1 className="h1-one h21">{t('mainTitle')}</h1>
+      {ReactSlick()}
+      <ul className="food-items">
+        {items.map((item,i)=>
+        <li class="item-card-container">
+          <div class="item-card">
+            <div class="item-card-front">
+              <img src={links[i]} alt={item} class="item-food-image" />
+            </div>
+            <div class="item-card-back">
+              <h3>{item}</h3>
+              <p>{itemsTitle[i]}</p>
+              <button onClick={e=>alert(t('logAlert'))} class="item-buy-button">{t('buyNow')}</button>
+            </div>
+          </div>
+        </li>
+      )}
+      </ul>
     </div>
   );
 };
