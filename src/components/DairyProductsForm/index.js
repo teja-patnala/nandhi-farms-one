@@ -173,7 +173,7 @@ function DairyProductsForm() {
       }
     }
     getTheMeatQuantity();
-  },[cart,productsData,setProductsCost]);
+  },[cart,productsData,setProductsCost,currentUserDataOne.multiLanguage,i18n]);
 
   function getTheCostOfItem(){
     let cost = 0

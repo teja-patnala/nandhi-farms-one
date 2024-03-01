@@ -19,7 +19,7 @@ export default function OrdersForm(){
             i18n.changeLanguage(currentUserDataOne.multiLanguage)
         }
         getTheAllOrdersOfUser();
-    },[currentUserDataOne.orders])
+    },[currentUserDataOne.orders,currentUserDataOne.multiLanguage,i18n])
 
     function sortObjectAlphabetically(obj) {
         // Step 1: Get the object's keys and sort them alphabetically
