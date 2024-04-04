@@ -15,7 +15,7 @@ const SubscriptionForm = () => {
   const [liters, setLiters] = useState(0);
   const [amount, setAmount] = useState(0);
   const [showStats, setShowStats] = useState(false);
-  const {t,i18n} = useTranslation();
+  const {t} = useTranslation();
 
   function getFutureDate(daysToAdd) {
     const today = new Date();

@@ -1,5 +1,5 @@
 import React, { useState,useEffect} from "react";
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 import "./index.css"; // You can create this CSS file to style your sign-up page
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -28,7 +28,7 @@ function SignUpForm() {
     otpForMilkCollection: 0,
   });
 
-  const {t,i18n} = useTranslation();
+  // const {t,i18n} = useTranslation();
 
   const {signup} = useAuth()
 
